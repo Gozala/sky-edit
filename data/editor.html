@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <style type="text/css" media="screen">
+      html, body {
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          width: 100%;
+          color: #ccc;
+      }
+      
+      #cockpitInput {
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+
+          border: none;
+          outline: none;
+          font-family: monaco consolas, courier, monospace;
+          font-size: 120%;
+      }
+
+      #cockpitOutput {
+        padding: 10px;
+        margin: 0 15px;
+        border: 1px solid #ccc;
+        -moz-border-radius-topleft: 10px;
+        -moz-border-radius-topright: 10px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        background: #DDD;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="editor"></div>
+    <input id="cockpitInput" type="text"/>
+
+    <script src="require.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+      var config = {
+        packagePaths: {
+          "ace/lib": [
+              { name:"ace", lib: "." }
+          ],
+          "ace/support/cockpit/lib": [
+              { name: "cockpit", main: "index", lib: "." }
+          ],
+          "ace/support/cockpit/support/pilot/lib": [
+              { name: "pilot", main: "index", lib: "." }
+          ]
+        },
+        paths: { luncher: "./luncher" }
+      };
+
+      var deps =
+      [ "pilot/fixoldbrowsers"
+      , "pilot/plugin_manager"
+      , "pilot/settings"
+      , "pilot/environment"
+      , "luncher"
+      ];
+
+      require(config, deps, function() {
+        var catalog = require("pilot/plugin_manager").catalog;
+        var REASON_START = require("pilot/plugin_manager").REASONS.APP_STARTUP;
+        var settings = require("pilot/settings").settings;
+        var plugins = [ "pilot/index", "cockpit/index" ];
+
+        catalog.registerPlugins(plugins).then(function() {
+          var env = require("pilot/environment").create();
+          catalog.startupPlugins({ env:env }, REASON_START).then(function() {
+            require("luncher").launch(env);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
