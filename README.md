@@ -16,6 +16,17 @@ editing it an editor, or just being able to navigate to
 experiment using [jetpack] and [ace] with an attempt to do exactly that and
 probably more in a future.
 
+## Changelog ##
+
+- v0.0.1
+  "edit:{{url}}" URIs now can load editor with a content in it, but changes can
+  not be saved.  
+  Examlpe of URIs that can be loaded: 
+  - [edit:file:///etc/hosts](edit:file:///etc/hosts)
+  - [edit:https://gist.github.com/raw/648918/2520e8264bd20d9b1d58848e369ab15c9f665bd6/read-lines.js](edit:https://gist.github.com/raw/648918/2520e8264bd20d9b1d58848e369ab15c9f665bd6/read-lines.js)
+  - [edit:http://google.com/index.html](edit:http://google.com/index.html)
+  - [edit:resource://gre/modules/Microformats.js](edit:resource://gre/modules/Microformats.js)
+  - [edit:chrome://browser/content/aboutHome.css](edit:chrome://browser/content/aboutHome.css)
 
 [ace]:http://ajaxorg.github.com/ace/
 [jetpack]:https://jetpack.mozillalabs.com/
