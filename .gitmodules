@@ -1,3 +1,0 @@
-[submodule "data/ace"]
-	path = data/ace
-	url = git://github.com/ajaxorg/ace
