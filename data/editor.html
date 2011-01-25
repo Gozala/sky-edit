@@ -51,30 +51,33 @@
           "ace/support/cockpit/lib": [
               { name: "cockpit", main: "index", lib: "." }
           ],
-          "ace/support/cockpit/support/pilot/lib": [
+          "ace/support/pilot/lib": [
               { name: "pilot", main: "index", lib: "." }
           ]
         },
         paths: { luncher: "./luncher" }
       };
 
-      var deps =
-      [ "pilot/fixoldbrowsers"
-      , "pilot/plugin_manager"
-      , "pilot/settings"
-      , "pilot/environment"
-      , "luncher"
+      var deps = [
+        "pilot/fixoldbrowsers",
+        "pilot/plugin_manager",
+        "pilot/settings",
+        "pilot/environment",
+        "luncher"
+      ];
+
+      var plugins = [
+        "pilot/index",
+        "cockpit/index",
+        "ace/defaults"
       ];
 
       require(config, deps, function() {
         var catalog = require("pilot/plugin_manager").catalog;
-        var REASON_START = require("pilot/plugin_manager").REASONS.APP_STARTUP;
-        var settings = require("pilot/settings").settings;
-        var plugins = [ "pilot/index", "cockpit/index" ];
 
         catalog.registerPlugins(plugins).then(function() {
           var env = require("pilot/environment").create();
-          catalog.startupPlugins({ env:env }, REASON_START).then(function() {
+          catalog.startupPlugins({ env: env }).then(function() {
             require("luncher").launch(env);
           });
         });

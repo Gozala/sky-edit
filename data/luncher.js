@@ -6,7 +6,7 @@ exports.launch = function(env) {
     var Editor = require("ace/editor").Editor;
     var Renderer = require("ace/virtual_renderer").VirtualRenderer;
     var theme = require("ace/theme/twilight");
-    var Document = require("ace/document").Document;
+    var EditSession = require("ace/edit_session").EditSession;
     var JavaScriptMode = require("ace/mode/javascript").Mode;
     var CssMode = require("ace/mode/css").Mode;
     var HtmlMode = require("ace/mode/html").Mode;
@@ -28,7 +28,7 @@ exports.launch = function(env) {
 
     var docs = {};
 
-    docs.js = new Document('');
+    docs.js = new EditSession('');
     docs.js.setMode(new JavaScriptMode());
     docs.js.setUndoManager(new UndoManager());
 
@@ -68,6 +68,7 @@ exports.launch = function(env) {
     });
 
     function getModeForFileURI(uri) {
+      uri = uri.split('?')[0].split('#')[0]
       var mode = "text";
       if (/^.*\.js$/i.test(uri)) {
           mode = "javascript";
@@ -88,7 +89,7 @@ exports.launch = function(env) {
     function loadContent(content, uri) {
       env.editor.getSelection().selectAll();
       env.editor.onTextInput(content);
-      env.editor.getDocument().setMode(getModeForFileURI(uri));
+      env.editor.getSession().setMode(getModeForFileURI(uri));
     }
 
     window.addEventListener("message", function (event) {
