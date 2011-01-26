@@ -1,9 +1,9 @@
 { "name": "sky-edit"
 , "id": "jid0-YZAvwrSjpo40iuJw0XpWTq4rfDI"
-, "version": "0.0.1"
+, "version": "0.0.2"
 , "description": "Editor embedded in browser."
 , "homepage": "http://github.com/Gozala/sky-edit/"
-, "keywords": []
+, "keywords": ["editor", "ace", "firefox", "vim", "vice"]
 , "contributors":
   [ "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)" ]
 , "repository":
