@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
 
 exports.launch = function(env) {
-
     var event = require("pilot/event");
     var Editor = require("ace/editor").Editor;
     var Renderer = require("ace/virtual_renderer").VirtualRenderer;
@@ -26,15 +25,13 @@ exports.launch = function(env) {
       php: new PhpMode()
     };
 
-    var docs = {};
-
-    docs.js = new EditSession('');
-    docs.js.setMode(new JavaScriptMode());
-    docs.js.setUndoManager(new UndoManager());
+    var session = new EditSession('');
+    session.setUndoManager(new UndoManager)
 
     var container = document.getElementById("editor");
     env.editor = new Editor(new Renderer(container, theme));
     env.editor.setSelectionStyle("text"); // "line"
+    env.editor.setSession(session)
 
     function onResize() {
       container.style.width = (document.documentElement.clientWidth) + "px";
@@ -52,15 +49,15 @@ exports.launch = function(env) {
     event.addListener(container, "drop", function(e) {
       try {
         var file = e.dataTransfer.files[0];
-        var mode = getModeForFileURI(file.name);
       } catch(e) {
+        console.error(e);
         return event.stopEvent();
       }
 
       if (window.FileReader) {
         var reader = new FileReader();
         reader.onload = function(e) {
-          loadContent(reader.result, mode)
+          loadContent(reader.result, file.name)
         };
         reader.readAsText(file);
       }
@@ -68,7 +65,7 @@ exports.launch = function(env) {
     });
 
     function getModeForFileURI(uri) {
-      uri = uri.split('?')[0].split('#')[0]
+      uri = String(uri).split('?')[0].split('#')[0]
       var mode = "text";
       if (/^.*\.js$/i.test(uri)) {
           mode = "javascript";
@@ -87,9 +84,9 @@ exports.launch = function(env) {
     }
     
     function loadContent(content, uri) {
-      env.editor.getSelection().selectAll();
-      env.editor.onTextInput(content);
-      env.editor.getSession().setMode(getModeForFileURI(uri));
+      var session = env.editor.getSession()
+      session.setValue(content)
+      session.setMode(getModeForFileURI(uri))
     }
 
     window.addEventListener("message", function (event) {
