@@ -1,6 +1,6 @@
 { "name": "sky-edit"
 , "id": "jid0-YZAvwrSjpo40iuJw0XpWTq4rfDI"
-, "version": "0.0.2"
+, "version": "0.0.3"
 , "description": "Editor embedded in browser."
 , "homepage": "http://github.com/Gozala/sky-edit/"
 , "keywords": ["editor", "ace", "firefox", "vim", "vice"]
