@@ -101,7 +101,7 @@ exports.launch = function(env) {
     // load file 
     window.postMessage(JSON.stringify({
       type: "content-load",
-      uri: String(location.hash).substr(1)
+      uri: String(location).substr('edit:'.length)
     }), "*")
   };
 });
