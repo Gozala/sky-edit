@@ -1,0 +1,12 @@
+[submodule "data/support/ace"]
+	path = data/support/ace
+	url = https://Gozala@github.com/Gozala/ace.git
+[submodule "data/support/pilot"]
+	path = data/support/pilot
+	url = https://Gozala@github.com/Gozala/pilot.git
+[submodule "data/support/cockpit"]
+	path = data/support/cockpit
+	url = https://Gozala@github.com/Gozala/cockpit.git
+[submodule "data/support/vice"]
+	path = data/support/vice
+	url = https://Gozala@github.com/Gozala/vice.git
