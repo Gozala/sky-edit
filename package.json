@@ -1,33 +1,37 @@
-{ "name": "sky-edit"
-, "id": "jid0-YZAvwrSjpo40iuJw0XpWTq4rfDI"
-, "version": "0.0.4"
-, "description": "Editor embedded in browser."
-, "homepage": "http://github.com/Gozala/sky-edit/"
-, "keywords": ["editor", "ace", "firefox", "vim", "vice"]
-, "contributors":
-  [ "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)" ]
-, "repository":
-  { "type": "git"
-  , "url": "git://github.com/Gozala/sky-edit.git"
-  }
-, "bugs": { "web": "http://github.com/Gozala/sky-edit/issues/" }
-, "directories":
-  { "doc": "./docs"
-  , "lib": "./lib"
-  , "test": "./test"
-  }
-, "dependencies":
-  { "test": ">=0.0.10"
-  , "protocol": ">=0.1.0"
-  , "addon-kit": ">=0.9.0"
-  }
-, "scripts": { "test": "node test/all.js" }
-, "engines":
-  { "addon-sdk": ">=0.9.0"
-  }
-, "licenses" :
-  [ { "type" : "MPL 1.1/LGPL 2.1/GPL 2.0"
-    , "url" : "http://www.mozilla.org/MPL/"
-    }
-  ]
+{
+  "name": "sky-edit",
+  "id": "sky-edit",
+  "version": "0.1.0",
+  "description": "Editor embedded in browser.",
+  "homepage": "http://github.com/Gozala/sky-edit/",
+  "keywords": [ "editor", "ace", "firefox", "vim", "vice" ],
+  "contributors": [
+    "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Gozala/sky-edit.git"
+  },
+  "bugs": {
+    "web": "http://github.com/Gozala/sky-edit/issues/"
+  },
+  "directories": {
+    "doc": "./docs",
+    "lib": "./lib",
+    "test": "./test"
+  },
+  "dependencies": {
+    "protocol": ">=0.1.0",
+    "addon-kit": ">=0.9.0"
+  },
+  "scripts": {
+    "test": "node test/all.js"
+  },
+  "engines": {
+    "addon-sdk": ">=0.9.0"
+  },
+  "licenses": [{
+    "type": "MPL 1.1/LGPL 2.1/GPL 2.0",
+    "url": "http://www.mozilla.org/MPL/"
+  }]
 }
