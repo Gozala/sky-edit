@@ -1,6 +1,0 @@
-[submodule "data/ace"]
-	path = data/ace
-	url = git://github.com/Gozala/ace.git
-[submodule "data/support/vice"]
-	path = data/support/vice
-	url = git://github.com/Gozala/vice.git
