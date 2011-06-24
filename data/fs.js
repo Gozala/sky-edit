@@ -61,7 +61,7 @@ function isPath(uri) {
 function getModeForFileURI(env, uri) {
   uri = String(uri).split('?')[0].split('#')[0]
   var mode = "text";
-  if (/^.*\.js$/i.test(uri)) {
+  if (/^(.*\.)js|jsm|json$/i.test(uri)) {
       mode = "javascript";
   } else if (/^.*\.xml$/i.test(uri)) {
       mode = "xml";
@@ -113,11 +113,6 @@ exports.commands = {
             if (isPath(uri))
               exports.writeFile(uri, content, function(error) {
                 if (error) return alert(error.message);
-                try {
-                window.location = 'edit:file://' + uri;
-                } catch (e) {
-                  alert(e.message)
-                }
               });
         }
     }/*,
