@@ -10,9 +10,6 @@
 var env, GUID = 0;
 var callbacks = {};
 
-var notification = document.documentElement;
-var pipe = document.documentElement.getElementsByTagName('textarea')[0];
-pipe.style.display = 'none';
 function call(method) {
   var address = ++GUID;
   callbacks[address] = arguments[arguments.length - 1];
@@ -21,15 +18,15 @@ function call(method) {
       method: method,
       params: Array.prototype.slice.call(arguments, 1, arguments.length - 1)
   });
-  pipe.value = message;
-  notification.setAttribute('data-server',
-               notification.getAttribute('data-server') ? '' : 'true');
+  var event = document.createEvent("MessageEvent");
+  event.initMessageEvent('addon-message', false, false, message, '*', null,
+                         null, null);
+  window.dispatchEvent(event);
 }
 
 // Listen to incoming messages.
-notification.addEventListener('DOMAttrModified', function(event) {
-  if (event.attrName !== 'data-client') return;
-  var data = JSON.parse(pipe.value);
+window.addEventListener('content-message', function(event) {
+  var data = JSON.parse(event.data);
   var address = data['<-'];
   var callback = callbacks[address];
   delete callbacks[address];
@@ -46,7 +43,7 @@ exports.rename = call.bind(null, 'rename');
 
 exports.startup = function startup(event) {
     boot();
-}
+};
 
 function isFileURI(uri) {
     return uri.indexOf('file://') === 0;
