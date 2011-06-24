@@ -27,6 +27,8 @@ exports.startup = function(data) {
 
     var UndoManager = require("ace/undomanager").UndoManager;
 
+    var fs = require('fs');
+
     var modes = {
       text: new TextMode(),
       xml: new XmlMode(),
@@ -73,7 +75,7 @@ exports.startup = function(data) {
       if (window.FileReader) {
         var reader = new FileReader();
         reader.onload = function(e) {
-          loadContent(reader.result, file.name)
+          loadContent(file.name, reader.result)
         };
         reader.readAsText(file);
       }
@@ -98,26 +100,14 @@ exports.startup = function(data) {
       }
       return modes[mode];
     }
-    
-    function loadContent(content, uri) {
+
+    function loadContent(uri, content) {
       var session = env.editor.getSession()
       session.setValue(content)
       session.setMode(getModeForFileURI(uri))
     }
 
-    window.addEventListener("message", function (event) {
-      try {
-        event = JSON.parse(event.data);
-        if ("content-change" == event.type) {
-          loadContent(event.content, event.uri)
-        }
-      } catch (e) {}
-    }, false)
-
-    // load file 
-    window.postMessage(JSON.stringify({
-      type: "content-load",
-      uri: String(location).substr('edit:'.length)
-    }), "*")
+    var uri = String(location).substr('edit:'.length);
+    if (uri) fs.readURI(uri, loadContent.bind(null, uri));
   };
 });
