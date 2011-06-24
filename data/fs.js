@@ -1,7 +1,7 @@
 /* vim:set ts=2 sw=2 sts=2 expandtab */
 /*jshint undef: true es5: true node: true devel: true
          forin: true latedef: false supernew: true browser: true */
-/*global define: true */
+/*global define: true port: true */
 
 (typeof define !== "function" ? function($){ $(null, typeof exports !== 'undefined' ? exports : window); } : define)(function(require, exports) {
 
@@ -13,24 +13,17 @@ var callbacks = {};
 function call(method) {
   var address = ++GUID;
   callbacks[address] = arguments[arguments.length - 1];
-  var message = JSON.stringify({
-      '->': address,
+  port.emit('<=', {
+      '@': address,
       method: method,
       params: Array.prototype.slice.call(arguments, 1, arguments.length - 1)
   });
-  var event = document.createEvent("MessageEvent");
-  event.initMessageEvent('addon-message', false, false, message, '*', null,
-                         null, null);
-  window.dispatchEvent(event);
 }
 
-// Listen to incoming messages.
-window.addEventListener('content-message', function(event) {
-  var data = JSON.parse(event.data);
-  var address = data['<-'];
+port.on('=>', function({ '@': address, params }) {
   var callback = callbacks[address];
   delete callbacks[address];
-  if (callback) callback.apply(null, data.params);
+  if (callback) callback.apply(null, params);
 }, false);
 
 exports.readdir = call.bind(null, 'readdir');
