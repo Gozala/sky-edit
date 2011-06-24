@@ -5,33 +5,29 @@
   "description": "Editor embedded in browser.",
   "homepage": "http://github.com/Gozala/sky-edit/",
   "keywords": [ "editor", "ace", "firefox", "vim", "vice" ],
-  "contributors": [
-    "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)"
-  ],
+  "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Gozala/sky-edit.git"
+    "url": "https://github.com/Gozala/sky-edit.git",
+    "web": "https://github.com/Gozala/sky-edit"
   },
   "bugs": {
     "web": "http://github.com/Gozala/sky-edit/issues/"
   },
   "directories": {
-    "doc": "./docs",
-    "lib": "./lib",
-    "test": "./test"
+    "lib": "./lib"
   },
   "dependencies": {
     "protocol": ">=0.1.0",
-    "addon-kit": ">=0.9.0"
+    "addon-kit": ">=0.9.0",
+    "io": ">=0.0.0."
   },
   "scripts": {
-    "test": "node test/all.js"
-  },
-  "engines": {
-    "addon-sdk": ">=0.9.0"
+    "test": "node tests/test-ubiquity.js",
+    "install": "graphquire --clean --write --cache-path ./"
   },
   "licenses": [{
-    "type": "MPL 1.1/LGPL 2.1/GPL 2.0",
-    "url": "http://www.mozilla.org/MPL/"
+    "type" : "MIT",
+    "url" : "http://jeditoolkit.com/LICENSE"
   }]
 }
