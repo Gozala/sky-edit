@@ -1,7 +1,6 @@
 // Forward all the messages posted to the window to the worker.
-var pipe = document.getElementById('io-pipe');
+var pipe = document.documentElement;
 pipe.addEventListener('DOMAttrModified', function(event) {
-  console.log('!!!!')
   if (event.attrName === 'data-server') self.postMessage(JSON.parse(event.newValue));
 }, false);
 

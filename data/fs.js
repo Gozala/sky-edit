@@ -10,10 +10,12 @@
 var env, GUID = 0;
 var callbacks = {};
 
-var pipe = document.getElementById('io-pipe');
+var pipe = document.documentElement;
 function call(method, data, callback) {
+  var address = ++GUID;
+  callbacks[address] = callback;
   var message = JSON.stringify({
-      '->': ++GUID,
+      '->': address,
       method: method,
       params: Array.prototype.slice.call(arguments, 1, arguments.length - 1)
   });
@@ -22,7 +24,6 @@ function call(method, data, callback) {
 
 // Listen to incoming messages.
 pipe.addEventListener('DOMAttrModified', function(event) {
-  alert(event.newValue)
   if (event.attrName !== 'data-client') return;
   var data = JSON.parse(event.newValue);
   var address = data['<-'];

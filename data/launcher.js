@@ -108,6 +108,8 @@ exports.startup = function(data) {
     }
 
     var uri = String(location).substr('edit:'.length);
-    if (uri) fs.readURI(uri, loadContent.bind(null, uri));
+    if (uri) fs.readURI(uri, function onRead(error, data) {
+      loadContent(uri, data);
+    });
   };
 });
