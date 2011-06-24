@@ -29,7 +29,7 @@ exports.startup = function(data) {
 
     var fs = require('fs');
 
-    var modes = {
+    var modes = env.modes = {
       text: new TextMode(),
       xml: new XmlMode(),
       html: new HtmlMode(),
@@ -55,61 +55,13 @@ exports.startup = function(data) {
       container.style.width = (document.documentElement.clientWidth) + "px";
       container.style.height = (document.documentElement.clientHeight - 22) + "px";
       env.editor.resize();
+      env.editor.focus();
     };
 
     window.onresize = onResize;
     onResize();
 
-    event.addListener(container, "dragover", function(e) {
-      return event.preventDefault(e);
-    });
-
-    event.addListener(container, "drop", function(e) {
-      try {
-        var file = e.dataTransfer.files[0];
-      } catch(e) {
-        console.error(e);
-        return event.stopEvent();
-      }
-
-      if (window.FileReader) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          loadContent(file.name, reader.result)
-        };
-        reader.readAsText(file);
-      }
-      return event.preventDefault(e);
-    });
-
-    function getModeForFileURI(uri) {
-      uri = String(uri).split('?')[0].split('#')[0]
-      var mode = "text";
-      if (/^.*\.js$/i.test(uri)) {
-          mode = "javascript";
-      } else if (/^.*\.xml$/i.test(uri)) {
-          mode = "xml";
-      } else if (/^.*\.html$/i.test(uri)) {
-          mode = "html";
-      } else if (/^.*\.css$/i.test(uri)) {
-          mode = "css";
-      } else if (/^.*\.py$/i.test(uri)) {
-          mode = "python";
-      } else if (/^.*\.php$/i.test(uri)) {
-          mode = "php";
-      }
-      return modes[mode];
-    }
-
-    function loadContent(uri, content) {
-      var session = env.editor.getSession()
-      session.setValue(content)
-      session.setMode(getModeForFileURI(uri))
-    }
-
     var uri = String(location).substr('edit:'.length);
-    if (uri) fs.readURI(uri, function onRead(error, data) {
-      loadContent(uri, data);
-    });
+    if (uri) fs.commands.edit.exec(env, { uri: uri });
   };
 });
