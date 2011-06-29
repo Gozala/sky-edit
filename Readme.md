@@ -1,6 +1,6 @@
 # sky-edit #
 
-**This is work in progress experiment that doesn't really works yet**
+**This is still very alpha experiment**
 
 Skyedit is an editor embedded in browser. Some browsers support `view-source:*`
 type URIs for viewing page source (Try clicking
@@ -16,17 +16,24 @@ editing it an editor, or just being able to navigate to
 experiment using [jetpack] and [ace] with an attempt to do exactly that and
 probably more in a future.
 
-## Changelog ##
+![Screenshot](http://f.cl.ly/items/190d3n1h3v3E1K1z2r0C/Screen%20shot%202011-06-29%20at%2013.46.37%20.png "Screenshot")
 
-- v0.0.1
-  "edit:{{url}}" URIs now can load editor with a content in it, but changes can
-  not be saved.  
-  Examlpe of URIs that can be loaded: 
-  - [edit:file:///etc/hosts](edit:file:///etc/hosts)
-  - [edit:https://gist.github.com/raw/648918/2520e8264bd20d9b1d58848e369ab15c9f665bd6/read-lines.js](edit:https://gist.github.com/raw/648918/2520e8264bd20d9b1d58848e369ab15c9f665bd6/read-lines.js)
-  - [edit:http://google.com/index.html](edit:http://google.com/index.html)
-  - [edit:resource://gre/modules/Microformats.js](edit:resource://gre/modules/Microformats.js)
-  - [edit:chrome://browser/content/aboutHome.css](edit:chrome://browser/content/aboutHome.css)
+## Hack ##
 
+To hack on this package you will need [npm][http://npmjs.org/] and [graphquire].
+
+    git clone git://github.com/Gozala/sky-edit.git --recursive
+    cd sky-edit
+    # install npm if you don't have yet
+    # skip next line if you already have graphquire
+    npm install graphquire -g
+    npm link
+
+## Install ##
+
+    Downoald lates .xpi file from [downloads] and drag it to firefox.
+
+[downloads]:https://github.com/Gozala/sky-edit/downloads
 [ace]:http://ajaxorg.github.com/ace/
 [jetpack]:https://jetpack.mozillalabs.com/
+[graphquire]:https://github.com/Gozala/graphquire/
