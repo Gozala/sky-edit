@@ -1,4 +1,4 @@
-var fs = require("https!raw.github.com/Gozala/jetpack-io/experimental/packageless/fs.js");
+var fs = require("https!raw.github.com/Gozala/jetpack-io/v0.1.0/fs.js");
 
 exports.readFile = function readFile(path, callback) {
   fs.readFile(path, function(error, data) {

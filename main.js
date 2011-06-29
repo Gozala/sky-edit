@@ -1,9 +1,8 @@
 'use strict'
 
 const { data } = require("self")
-  ,   { PageMod } = require("page-mod")
-  ,   { Request } = require("request")
-  ,   protocol = require("protocol")
+  ,   { PageMod } = require("addon-kit/page-mod")
+  ,   protocol = require("https!raw.github.com/Gozala/jetpack-protocol/v0.1.0/protocol.js")
 
 const PROTOCOL = 'edit'
 const editorURI = data.url('index.html')

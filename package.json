@@ -15,10 +15,8 @@
     "web": "http://github.com/Gozala/sky-edit/issues/"
   },
   "main": "./main.js",
-  "dependencies": {
-    "protocol": ">=0.1.0",
-    "addon-kit": ">=0.9.0",
-    "io": ">=0.0.0."
+  "devDependencies": {
+    "graphquire": ">=0.6.1"
   },
   "scripts": {
     "test": "node tests/test-ubiquity.js",
