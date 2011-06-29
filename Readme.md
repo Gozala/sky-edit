@@ -20,7 +20,7 @@ probably more in a future.
 
 ## Hack ##
 
-To hack on this package you will need [npm][http://npmjs.org/] and [graphquire].
+To hack on this package you will need [npm](http://npmjs.org/) and [graphquire].
 
     git clone git://github.com/Gozala/sky-edit.git --recursive
     cd sky-edit
@@ -31,7 +31,7 @@ To hack on this package you will need [npm][http://npmjs.org/] and [graphquire].
 
 ## Install ##
 
-    Downoald lates .xpi file from [downloads] and drag it to firefox.
+Download latest .xpi file from [downloads] and drag it to firefox.
 
 [downloads]:https://github.com/Gozala/sky-edit/downloads
 [ace]:http://ajaxorg.github.com/ace/
