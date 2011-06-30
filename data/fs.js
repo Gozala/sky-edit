@@ -10,6 +10,7 @@
 var env, GUID = 0;
 var callbacks = {};
 
+
 function call(method) {
   var address = ++GUID;
   callbacks[address] = arguments[arguments.length - 1];
@@ -34,9 +35,6 @@ exports.writeFile = call.bind(null, 'writeFile');
 exports.readURI = call.bind(null, 'readURI');
 exports.rename = call.bind(null, 'rename');
 
-exports.startup = function startup(event) {
-    boot();
-};
 
 function isFileURI(uri) {
     return uri.indexOf('file://') === 0;
@@ -67,16 +65,14 @@ function getModeForFileURI(env, uri) {
   return env.modes[mode];
 }
 
-function setBuffer(env, uri, error, content) {
-    if (!error) {
-        var session = env.editor.getSession();
-        session.setValue(content);
-        session.setMode(getModeForFileURI(env, uri));
-        session.uri = uri;
-    } else {
-        alert(error);
-    }
+function setBuffer(env, uri, content) {
+    var session = env.editor.getSession();
+    session.setValue(content);
+    session.setMode(getModeForFileURI(env, uri));
+    activeURI = session.uri = uri;
 }
+
+var activeURI = null;
 
 exports.commands = {
     edit: {
@@ -84,26 +80,42 @@ exports.commands = {
         params: [
             { name: 'uri', type: 'text', defaultValue: null }
         ],
-        exec: function exec(env, params) {
+        exec: function exec(env, params, request) {
+            request.async();
             var uri = params.uri;
-            if (isFileURI(uri)) uri = getFilePath(uri);
-            if (isPath(uri))
-              exports.readFile(uri, setBuffer.bind(null, env, 'file://' + uri));
+            var path = isFileURI(uri) ? getFilePath(uri) : uri;
+            if (isPath(path)) {
+              uri = 'file://' + path
+              exports.readFile(path, function(error, content) {
+                if (error) return request.doneWithError(error.message);
+                else setBuffer(env, uri, content);
+                return request.done('Edit: ' + path)
+              });
+            }
         }
     },
     write: {
         description: 'save changes to the file',
         params: [
-            { name: 'uri', type: 'text', defaultValue: null }
+            {
+              name: 'uri',
+              type: 'text',
+              get defaultValue () {
+                return activeURI;
+              }
+            }
         ],
-        exec: function exec(env, params) {
+        exec: function exec(env, params, request) {
+            request.async();
             var uri = params.uri || env.editor.session.uri;
             var content = env.editor.getSession().getValue();
             if (isFileURI(uri)) uri = getFilePath(uri);
-            if (isPath(uri))
+            if (isPath(uri)) {
               exports.writeFile(uri, content, function(error) {
-                if (error) return alert(error.message);
+                if (error) request.doneWithError(error.message)
+                else request.done('Wrote to: ' + getFilePath(uri))
               });
+            }
         }
     }/*,
     ls: {
@@ -125,7 +137,7 @@ exports.commands = {
     }*/
 };
 
-function boot() {
+exports.startup = function startup(event) {
     var canon = require("pilot/canon");
     var commands = exports.commands;
     Object.keys(commands).forEach(function(name) {
@@ -133,6 +145,8 @@ function boot() {
         command.name = name;
         canon.addCommand(command);
     });
-}
+    var uri = String(location).substr('edit:'.length);
+    if (uri) canon.exec('edit', event.env, 'cli', { uri: uri });
+};
 
 });

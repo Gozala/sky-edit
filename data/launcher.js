@@ -61,7 +61,5 @@ exports.startup = function(data) {
     window.onresize = onResize;
     onResize();
 
-    var uri = String(location).substr('edit:'.length);
-    if (uri) fs.commands.edit.exec(env, { uri: uri });
   };
 });
