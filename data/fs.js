@@ -49,7 +49,7 @@ function isPath(uri) {
 function getModeForFileURI(env, uri) {
   var file = { name: String(uri).split('?')[0].split('#')[0] };
   var mode = "text";
-  if (/^.*\.js$/i.test(file.name)) {
+  if (/^.*\.js|\.jsm$/i.test(file.name)) {
       mode = "javascript";
   } else if (/^.*\.xml$/i.test(file.name)) {
       mode = "xml";
