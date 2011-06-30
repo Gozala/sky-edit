@@ -67,19 +67,18 @@
         "pilot/index",
         "cockpit/index",
         "ace/defaults",
-        "ace/keyboard",
         "vice/vice",
-        "launcher",
-        "fs"
+        "fs",
+        "launcher"
       ];
 
-      require(config, deps, function() {
-          var catalog = require("pilot/plugin_manager").catalog;
-          var env = window.env = require("pilot/environment").Environment();
-          catalog.registerPlugins(plugins, { env: env }).then(function() {
-              catalog.startupPlugins({ env: env });
-          });
-      });
+    require(config, deps, function() {
+        var catalog = require("pilot/plugin_manager").catalog;
+        catalog.registerPlugins(plugins).then(function() {
+            var env = require("pilot/environment").create();
+            catalog.startupPlugins({ env: env });
+        });
+    });
     </script>
   </body>
 </html>
