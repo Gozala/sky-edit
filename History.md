@@ -1,5 +1,11 @@
 # History #
 
+## 0.2.1 / 2011-06-30 ##
+
+  - Improve feedback for writing files.
+  - Adding keyboard shortcut for jumping in and out of CLI.
+  - Bugfixes.
+
 ## 0.2.0 / 2011-06-29 ##
 
   - Switching to packageless module dependencies.
