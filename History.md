@@ -1,5 +1,9 @@
 # History #
 
+## 0.2.2 / 2011-06-30 ##
+
+ - Updating to the latest ace version.
+
 ## 0.2.1 / 2011-06-30 ##
 
   - Improve feedback for writing files.
