@@ -47,21 +47,44 @@ function isPath(uri) {
 }
 
 function getModeForFileURI(env, uri) {
-  uri = String(uri).split('?')[0].split('#')[0]
+  var file = { name: String(uri).split('?')[0].split('#')[0] };
   var mode = "text";
-  if (/^(.*\.)js|jsm|json$/i.test(uri)) {
+  if (/^.*\.js$/i.test(file.name)) {
       mode = "javascript";
-  } else if (/^.*\.xml$/i.test(uri)) {
+  } else if (/^.*\.xml$/i.test(file.name)) {
       mode = "xml";
-  } else if (/^.*\.html$/i.test(uri)) {
+  } else if (/^.*\.html$/i.test(file.name)) {
       mode = "html";
-  } else if (/^.*\.css$/i.test(uri)) {
+  } else if (/^.*\.css$/i.test(file.name)) {
       mode = "css";
-  } else if (/^.*\.py$/i.test(uri)) {
+  } else if (/^.*\.scss$/i.test(file.name)) {
+      mode = "scss";
+  } else if (/^.*\.py$/i.test(file.name)) {
       mode = "python";
-  } else if (/^.*\.php$/i.test(uri)) {
+  } else if (/^.*\.php$/i.test(file.name)) {
       mode = "php";
+  } else if (/^.*\.cs$/i.test(file.name)) {
+      mode = "csharp";
+  } else if (/^.*\.java$/i.test(file.name)) {
+      mode = "java";
+  } else if (/^.*\.rb$/i.test(file.name)) {
+      mode = "ruby";
+  } else if (/^.*\.(c|cpp|h|hpp|cxx)$/i.test(file.name)) {
+      mode = "c_cpp";
+  } else if (/^.*\.coffee$/i.test(file.name)) {
+      mode = "coffee";
+  } else if (/^.*\.json$/i.test(file.name)) {
+      mode = "json";
+  } else if (/^.*\.(pl|pm)$/i.test(file.name)) {
+      mode = "perl";
+  } else if (/^.*\.(ml|mli)$/i.test(file.name)) {
+      mode = "ocaml";
+  } else if (/^.*\.(groovy)$/i.test(file.name)) {
+      mode = "groovy";
+  } else if (/^.*\.(scala)$/i.test(file.name)) {
+      mode = "scala";
   }
+
   return env.modes[mode];
 }
 
@@ -146,7 +169,7 @@ exports.startup = function startup(event) {
         canon.addCommand(command);
     });
     var uri = String(location).substr('edit:'.length);
-    if (uri) canon.exec('edit', event.env, 'cli', { uri: uri });
+    if (uri) canon.exec('edit', event.env, 'cli', { uri: uri }, 'edit');
 };
 
 });
