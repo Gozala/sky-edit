@@ -1,4 +1,4 @@
-var fs = require("https!raw.github.com/Gozala/jetpack-io/v0.1.0/fs.js");
+var fs = require("https://raw.github.com/Gozala/jetpack-io/v0.2.0/fs.js");
 
 function serializeError(error) {
   return error ? { message: error.message } : error;
