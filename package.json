@@ -16,11 +16,10 @@
   },
   "main": "./main.js",
   "devDependencies": {
-    "graphquire": ">=0.6.1"
+    "graphquire": ">=0.7.0"
   },
   "scripts": {
-    "test": "node tests/test-ubiquity.js",
-    "install": "graphquire --clean --write --cache-path ./"
+    "install": "graphquire --clean --write --escape --cache-path ./"
   },
   "licenses": [{
     "type" : "MIT",
