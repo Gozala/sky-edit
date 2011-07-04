@@ -2,8 +2,7 @@
 /*jshint undef: true es5: true node: true devel: true
          forin: true latedef: false supernew: true browser: true */
 /*global define: true port: true */
-
-(typeof define !== "function" ? function($){ $(null, typeof exports !== 'undefined' ? exports : window); } : define)(function(require, exports) {
+!define(function(require, exports) {
 
 "use strict";
 
@@ -29,11 +28,12 @@ port.on('=>', function({ '@': address, params }) {
 
 exports.readdir = call.bind(null, 'readdir');
 exports.mkdir = call.bind(null, 'mkdir');
-exports.rmdir = call.bind(null, 'rmdir');
+exports.rmdir = call.bind(null, 'unlink');
 exports.readFile = call.bind(null, 'readFile');
 exports.writeFile = call.bind(null, 'writeFile');
 exports.readURI = call.bind(null, 'readURI');
 exports.rename = call.bind(null, 'rename');
+exports.readdir = call.bind(null, 'readdir')
 
 
 function isFileURI(uri) {
@@ -114,6 +114,8 @@ exports.commands = {
                 else setBuffer(env, uri, content);
                 return request.done('Edit: ' + path)
               });
+            } else {
+              request.doneWithError('Unsupported file location: ' + uri)
             }
         }
     },
@@ -132,24 +134,59 @@ exports.commands = {
             request.async();
             var uri = params.uri || env.editor.session.uri;
             var content = env.editor.getSession().getValue();
-            if (isFileURI(uri)) uri = getFilePath(uri);
-            if (isPath(uri)) {
-              exports.writeFile(uri, content, function(error) {
+            var path = isFileURI(uri) ? getFilePath(uri) : uri;
+            if (isPath(path)) {
+              exports.writeFile(path, content, function(error) {
                 if (error) request.doneWithError(error.message)
-                else request.done('Wrote to: ' + getFilePath(uri))
+                else request.done('Wrote to: ' + path)
               });
+            } else {
+              request.doneWithError('Unsupported file location: ' + uri)
             }
         }
-    }/*,
+    },
+    cwd: {
+      description: 'Prints current working directory',
+      params: [
+        {
+          name: 'path',
+          type: 'text'
+        }
+      ],
+      exec: function exec(env, params, request) {
+        request.async();
+        var uri = params.uri || env.editor.session.uri;
+        var content = env.editor.getSession().getValue();
+        var path = isFileURI(uri) ? getFilePath(uri) : uri;
+        if (isPath(path)) {
+          exports.writeFile(path, content, function(error) {
+            if (error) request.doneWithError(error.message)
+            else request.done('Wrote to: ' + path)
+          });
+        }
+      }
+    },
     ls: {
         description: 'list files in the working dir',
         params: [
             { name: 'uri', type: 'text', defaultValue: null }
         ],
-        exec: function exec(env, params) {
-            var uri = params.uri || pwd(env);
+        exec: function exec(env, params, request) {
+          request.async();
+          var uri = params.uri;
+          var path = isFileURI(uri) ? getFilePath(uri) : uri;
+          if (isPath(path)) {
+            exports.readdir(path, function(error, entries) {
+              if (error) return request.doneWithError(error.message)
+              entries.forEach(request.output.bind(request))
+              request.done(' ')
+            })
+          }  else {
+            request.doneWithError('Unsupported location: ' + uri)
+          }
         }
-    },
+    }
+    /*
     cd: {
         description: 'change working directory',
         params: [
