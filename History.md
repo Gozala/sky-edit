@@ -1,8 +1,18 @@
 # History #
 
+## 0.3.0 / 2011-07-03 ##
+
+  - Fix undo manager.
+  - Modify default settings.
+  - Code refactoring & cleanup.
+  - Fix `^` and `$` keybindings.
+  - Improve write / edit commands feedback.
+  - Style improvements.
+  - Switch to URL based require.
+
 ## 0.2.2 / 2011-06-30 ##
 
- - Updating to the latest ace version.
+  - Updating to the latest ace version.
 
 ## 0.2.1 / 2011-06-30 ##
 
