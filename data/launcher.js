@@ -5,9 +5,7 @@
 !define(function(require, exports, module) {
 
 exports.startup = function(data) {
-    var env = data.env;
-
-    var event = require("pilot/event");
+    var env = window.env = data.env;
 
     var Range = require("ace/range").Range;
     var Editor = require("ace/editor").Editor;
@@ -35,5 +33,7 @@ exports.startup = function(data) {
     window.onresize = onResize;
     onResize();
 
+    env.editor.renderer.setHScrollBarAlwaysVisible(false);
+    env.editor.setShowInvisibles(true);
   };
 });
