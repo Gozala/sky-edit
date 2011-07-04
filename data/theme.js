@@ -49,8 +49,8 @@ define(function(require, exports, module) {
 \
 .ace-twilight .ace_gutter {\
   width: 50px;\
-  background: #e8e8e8;\
-  color: #333;\
+  background: #2E2E2E;\
+  color: #666666;\
   overflow : hidden;\
 }\
 \
