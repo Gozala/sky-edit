@@ -35,6 +35,51 @@ exports.readURI = call.bind(null, 'readURI');
 exports.rename = call.bind(null, 'rename');
 exports.readdir = call.bind(null, 'readdir')
 
+var JavaScriptMode = require("ace/mode/javascript").Mode;
+var CssMode = require("ace/mode/css").Mode;
+var HtmlMode = require("ace/mode/html").Mode;
+var XmlMode = require("ace/mode/xml").Mode;
+var PythonMode = require("ace/mode/python").Mode;
+var PhpMode = require("ace/mode/php").Mode;
+var JavaMode = require("ace/mode/java").Mode;
+var CSharpMode = require("ace/mode/csharp").Mode;
+var RubyMode = require("ace/mode/ruby").Mode;
+var CCPPMode = require("ace/mode/c_cpp").Mode;
+var CoffeeMode = require("ace/mode/coffee").Mode;
+var JsonMode = require("ace/mode/json").Mode;
+var PerlMode = require("ace/mode/perl").Mode;
+var ClojureMode = require("ace/mode/clojure").Mode;
+var OcamlMode = require("ace/mode/ocaml").Mode;
+var SvgMode = require("ace/mode/svg").Mode;
+var TextileMode = require("ace/mode/textile").Mode;
+var TextMode = require("ace/mode/text").Mode;
+var GroovyMode = require("ace/mode/groovy").Mode;
+var ScalaMode = require("ace/mode/scala").Mode;
+
+var modes = {
+  'javascript': new JavaScriptMode(),
+  'css': new CssMode(),
+  'html': new HtmlMode(),
+  'xml': new XmlMode(),
+  'python': new PythonMode(),
+  'php': new PhpMode(),
+  'java': new JavaMode(),
+  'csharp': new CSharpMode(),
+  'ruby': new RubyMode(),
+  'c_cpp': new CCPPMode(),
+  'coffee': new CoffeeMode(),
+  'json': new JsonMode(),
+  'perl': new PerlMode(),
+  'clojure': new ClojureMode(),
+  'ocaml': new OcamlMode(),
+  'svg': new SvgMode(),
+  'textile': new TextileMode(),
+  'text': new TextMode(),
+  'groovy': new GroovyMode(),
+  'scala': new ScalaMode()
+};
+
+
 
 function isFileURI(uri) {
     return uri.indexOf('file://') === 0;
@@ -85,7 +130,7 @@ function getModeForFileURI(env, uri) {
       mode = "scala";
   }
 
-  return env.modes[mode];
+  return modes[mode];
 }
 
 function setBuffer(env, uri, content) {
