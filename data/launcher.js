@@ -18,10 +18,11 @@ exports.startup = function(data) {
     session.setUndoManager(new UndoManager());
 
     var container = document.getElementById("editor");
-    env.editor = new Editor(new Renderer(container, theme));
+    var editor = env.editor = new Editor(new Renderer(container, theme));
     // Each editor should contain reference to an `env` which will be used be
     // passed to the commands executed by keybindings.
-    env.editor.env = Object.create(env);
+    editor.env = Object.create(env);
+    editor.setSession(session);
 
     function onResize() {
       container.style.width = (document.documentElement.clientWidth) + "px";
