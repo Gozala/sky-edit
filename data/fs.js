@@ -153,10 +153,10 @@ exports.commands = {
             var uri = params.uri;
             var path = isFileURI(uri) ? getFilePath(uri) : uri;
             if (isPath(path)) {
-              uri = 'file://' + path
+              uri = 'edit:' + path
               exports.readFile(path, function(error, content) {
                 if (error) return request.doneWithError(error.message);
-                else setBuffer(env, uri, content);
+                else setBuffer(env, path, content);
                 return request.done('Edit: ' + path)
               });
             } else {
