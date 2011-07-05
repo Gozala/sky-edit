@@ -138,6 +138,11 @@ function setBuffer(env, uri, content) {
     session.setValue(content);
     session.setMode(getModeForFileURI(env, uri));
     activeURI = session.uri = uri;
+    try {
+      window.history.pushState({}, uri, 'edit:' + uri);
+    } catch (e) {
+      console.error(e.message)
+    }
 }
 
 var activeURI = null;
