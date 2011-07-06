@@ -9,11 +9,11 @@
 var data = require("self").data
 var PageMod = require("addon-kit/page-mod").PageMod
 var protocol = require("https://raw.github.com/Gozala/jetpack-protocol/v0.1.0/protocol.js")
+var fs = require("https://raw.github.com/Gozala/jetpack-io/v0.2.1/fs.js")
 
 const PROTOCOL = 'edit'
 const editorURI = data.url('index.html')
 const rootURI = editorURI.substr(0, editorURI.lastIndexOf('/') + 1)
-var fs = require("https://raw.github.com/Gozala/jetpack-io/v0.2.0/fs.js")
 
 function errorToJSON(error) {
   return error ? { message: error.message, stack: error.stack } : error
