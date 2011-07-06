@@ -8,7 +8,7 @@
 
 var data = require("self").data
 var PageMod = require("addon-kit/page-mod").PageMod
-var protocol = require("https://raw.github.com/Gozala/jetpack-protocol/v0.1.0/protocol.js")
+var protocol = require("https://raw.github.com/Gozala/jetpack-protocol/v0.2.0/index.js")
 var fs = require("https://raw.github.com/Gozala/jetpack-io/v0.2.1/fs.js")
 
 const PROTOCOL = 'edit'
@@ -35,23 +35,48 @@ var mod  = PageMod({
   }
 })
 
+function isAbsolute(uri) {  return ~uri.indexOf('edit:') }
+function resolve(id, base) {
+  var path, paths, last
+  if (isAbsolute(id)) return id
+  paths = id.split('/')
+  base = base ? base.split('/') : [ '.' ]
+  if (base.length > 1) base.pop()
+  while ((path = paths.shift())) {
+    if (path === '..') {
+      if (base.length && base[base.length - 1] !== '..') {
+        if (base.pop() === '.') base.push(path)
+      } else base.push(path)
+    } else if (path !== '.') {
+      base.push(path)
+    }
+  }
+  if (base[base.length - 1].substr(-1) === '.') base.push('')
+  return base.join('/')
+}
+
 // Registers protocol handler for `edit:*` protocol.
-var editProtocolHandler = protocol.Handler({
+var editProtocolHandler = protocol.protocol(PROTOCOL, {
+  onResolve: function(uri, base) {
+    if (base && !~base.indexOf('edit:///'))
+      base = 'edit:///index.html'
+    return resolve(uri, base)
+  },
   // When browser is navigated to `edit:*` URI this function is called with an
   // absolute URI and returned content or content under returned URI will be
   // displayed to a user.
   onRequest: function(request, response) {
-    var uri = request.uri
-    var referer = request.referer
-    if (0 === uri.indexOf('edit:')) {
-      response.content = data.load('index.html')
-      response.contentType = 'text/html'
-      response.originalURI = editorURI
-    } else {
-      response.uri = rootURI + uri
+    try {
+      // All the editor content is located under 'edit:///' so to get a path
+      // we just strip that out.
+      var path = request.uri.replace('edit:///', '')
+      // If requested path was diff from 'edit:///...', then we load editor.
+      path = ~path.indexOf('edit:') ? 'index.html' : path
+      response.uri = data.url(path)
+    } catch(error) {
+      console.exception(error)
     }
   }
-})
-editProtocolHandler.listen({ scheme: PROTOCOL })
+}).register()
 
 });
