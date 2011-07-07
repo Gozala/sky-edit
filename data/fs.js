@@ -133,13 +133,16 @@ function getModeForFileURI(env, uri) {
   return modes[mode];
 }
 
-function setBuffer(env, uri, content) {
+function setBuffer(env, uri, content, skip, replace) {
     var session = env.editor.getSession();
     session.setValue(content);
     session.setMode(getModeForFileURI(env, uri));
     activeURI = session.uri = uri;
     try {
-      window.history.pushState({}, uri, 'edit:' + uri);
+      console.log(skip, replace)
+      if (skip) return
+      if (replace) history.replaceState({ uri: uri }, uri, 'edit:' + uri)
+      else history.pushState({ uri: uri }, uri, 'edit:' + uri)
     } catch (e) {
       console.error(e.message)
     }
@@ -154,14 +157,13 @@ exports.commands = {
             { name: 'uri', type: 'text', defaultValue: null }
         ],
         exec: function exec(env, params, request) {
-            request.async();
-            var uri = params.uri;
-            var path = isFileURI(uri) ? getFilePath(uri) : uri;
+            request.async()
+            var uri = params.uri
+            var path = isFileURI(uri) ? getFilePath(uri) : uri
             if (isPath(path)) {
-              uri = 'edit:' + path
               exports.readFile(path, function(error, content) {
-                if (error) return request.doneWithError(error.message);
-                else setBuffer(env, path, content);
+                if (error) return request.doneWithError(error.message)
+                else setBuffer(env, path, content, params.skip, params.replace)
                 return request.done('Edit: ' + path)
               });
             } else {
@@ -248,15 +250,25 @@ exports.commands = {
 };
 
 exports.startup = function startup(event) {
-    var canon = require("pilot/canon");
-    var commands = exports.commands;
+    var canon = require("pilot/canon")
+    var commands = exports.commands
+    var env = event.env
+
     Object.keys(commands).forEach(function(name) {
         var command = commands[name];
         command.name = name;
-        canon.addCommand(command);
-    });
-    var uri = String(location).substr('edit:'.length);
-    if (uri) canon.exec('edit', event.env, 'cli', { uri: uri }, 'edit');
+        canon.addCommand(command)
+    })
+
+    function load(skip, replace) {
+      var uri = String(location).substr('edit:'.length)
+      if (uri) canon.exec('edit', env, 'cli', {
+        uri: uri, skip: !!skip, replace: !!replace
+      }, 'edit')
+    }
+
+    window.addEventListener('popstate', load, false)
+    load(false, true)
 };
 
 });
