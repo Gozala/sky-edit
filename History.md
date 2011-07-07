@@ -1,5 +1,10 @@
 # History #
 
+## 0.4.0 / 2011-07-07 ##
+
+  - history.pushState support now changes location bar depending on loaded
+    buffer.
+
 ## 0.3.0 / 2011-07-03 ##
 
   - Fix undo manager.
