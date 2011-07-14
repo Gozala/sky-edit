@@ -1,5 +1,10 @@
 # History #
 
+## 0.4.1 / 2011-07-14 ##
+
+  - Some visual improvements.
+  - Add-on cleans up correctly after uninstall / reinstall.
+
 ## 0.4.0 / 2011-07-07 ##
 
   - history.pushState support now changes location bar depending on loaded
