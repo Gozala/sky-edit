@@ -80,7 +80,7 @@ var editProtocolHandler = protocol.protocol(PROTOCOL, {
 }).register()
 
 // Make suer that protocol handler is removed, once add-on is uninstalled.
-require("unload").editProtocolHandler(function() {
+require("unload").when(function() {
   editProtocolHandler.unregister()
 })
 
