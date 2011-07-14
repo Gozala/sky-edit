@@ -1,5 +1,9 @@
 # History #
 
+## 0.4.2 / 2011-07-14 ##
+
+  - Fixing bug breaking an addon.
+
 ## 0.4.1 / 2011-07-14 ##
 
   - Some visual improvements.
