@@ -67,6 +67,12 @@
   background: rgba(221, 240, 255, 0.20);
 }
 
+.ace-twilight .ace_marker-layer .ace_selected_word {
+  border-radius: 4px;
+  border: 8px solid #3f475d;
+  box-shadow: 0 0 4px black;
+}
+
 .ace-twilight .ace_marker-layer .ace_step {
   background: rgb(198, 219, 174);
 }
@@ -80,25 +86,37 @@
   background: rgba(255, 255, 255, 0.031);
 }
 
-       
+
+
 .ace-twilight .ace_invisible {
-  color: rgba(255, 255, 255, 0.25);
+  color: #333;
+}
+
+.ace-twilight .ace_paren {
+  color: #24C2C7;
 }
 
 .ace-twilight .ace_keyword {
-  color:#CDA869;
+  color: #aac6e3;
 }
 
 .ace-twilight .ace_keyword.ace_operator {
-  
+  color: #fa8d6a;
+}
+
+.ace-twilight .ace_identifier {
+}
+
+.ace-twilight .ace-statement {
+  color: #cda869;
 }
 
 .ace-twilight .ace_constant {
-  color:#CF6A4C;
+  color: #CF7EA9;
 }
 
 .ace-twilight .ace_constant.ace_language {
-  
+  color: #9b859d;
 }
 
 .ace-twilight .ace_constant.ace_library {
@@ -106,7 +124,7 @@
 }
 
 .ace-twilight .ace_constant.ace_numeric {
-  
+  color: #78CF8A;
 }
 
 .ace-twilight .ace_invalid {
@@ -115,58 +133,62 @@
 
 .ace-twilight .ace_invalid.ace_illegal {
   color:#F8F8F8;
-background-color:rgba(86, 45, 86, 0.75);
+  background-color: rgba(86, 45, 86, 0.75);
 }
 
 .ace-twilight .ace_invalid.ace_deprecated {
-  text-decoration:underline;
-font-style:italic;
-color:#D2A8A1;
+  text-decoration: underline;
+  font-style: italic;
+  color: #D2A8A1;
 }
 
 .ace-twilight .ace_support {
-  color:#9B859D;
+  color: #9B859D;
 }
 
 .ace-twilight .ace_support.ace_function {
-  color:#DAD085;
+  color: #DAD085;
 }
 
 .ace-twilight .ace_function.ace_buildin {
-  
+  color: #9b859d;
 }
 
 .ace-twilight .ace_string {
-  color:#8F9D6A;
+  color: #8f9d6a;
 }
 
 .ace-twilight .ace_string.ace_regexp {
-  color:#E9C062;
+  color: #FC91AD;
 }
 
 .ace-twilight .ace_comment {
-  font-style:italic;
-  color:#5F5A60;
+  font-style: italic;
+  color: #555;
 }
 
 .ace-twilight .ace_comment.ace_doc {
-  
 }
 
 .ace-twilight .ace_comment.ace_doc.ace_tag {
-  
+  color: #666;
+  font-style: normal;
+}
+
+.ace-twilight .ace_definition {
+  color: #7587a6;
 }
 
 .ace-twilight .ace_variable {
-  color:#7587A6;
+  color: #7587A6;
 }
 
 .ace-twilight .ace_variable.ace_language {
-  
+  color: #7587A6;
 }
 
 .ace-twilight .ace_xml_pe {
-  color:#494949;
+  color: #494949;
 }
 
 
