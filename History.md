@@ -1,5 +1,11 @@
 # History #
 
+## 0.5.0 / 2011-09-08 ##
+
+  - Improved UI
+  - `command-s` saves buffer.
+  - More VIM bindings (`f/t/F/T/0/20G`).
+
 ## 0.4.2 / 2011-07-14 ##
 
   - Fixing bug breaking an addon.
