@@ -3,6 +3,9 @@
 ## 0.5.0 / 2011-09-08 ##
 
   - Improved UI
+  - Parens highlighting.
+  - Selection highlighting.
+  - Updating to the latest ACE version.
   - `command-s` saves buffer.
   - More VIM bindings (`f/t/F/T/0/20G`).
 
