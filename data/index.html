@@ -18,9 +18,8 @@
     <div id="editor"></div>
     <input id="cockpitInput" type="text"/>
 
-    <script src="require.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      var config = {
+      var require = {
         paths: {
           ace: "./support/ace/lib/ace",
           cockpit: "./support/cockpit/lib/cockpit",
@@ -30,32 +29,7 @@
           fs: "./fs"
         }
       };
-
-      var deps = [
-        "pilot/fixoldbrowsers",
-        "pilot/plugin_manager",
-        "pilot/settings",
-        "pilot/environment",
-        "launcher",
-        "fs"
-      ];
-
-      var plugins = [
-        "pilot/index",
-        "cockpit/index",
-        "ace/defaults",
-        "vice/vice",
-        "fs",
-        "launcher"
-      ];
-
-    require(config, deps, function() {
-        var catalog = require("pilot/plugin_manager").catalog;
-        catalog.registerPlugins(plugins).then(function() {
-            var env = require("pilot/environment").create();
-            catalog.startupPlugins({ env: env });
-        });
-    });
     </script>
+    <script src="./support/ace/demo/require.js" data-main="./boot.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
