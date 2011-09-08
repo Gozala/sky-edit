@@ -5,38 +5,38 @@
 !define(function(require, exports, module) {
 
 exports.startup = function(data) {
-  var env = window.env = data.env;
+  var env = window.env = data.env
 
-  var Range = require("ace/range").Range;
-  var Editor = require("ace/editor").Editor;
-  var Renderer = require("ace/virtual_renderer").VirtualRenderer;
-  var UndoManager = require("ace/undomanager").UndoManager;
-  var EditSession = require("ace/edit_session").EditSession;
+  var Range = require("ace/range").Range
+  var Editor = require("ace/editor").Editor
+  var Renderer = require("ace/virtual_renderer").VirtualRenderer
+  var UndoManager = require("ace/undomanager").UndoManager
+  var EditSession = require("ace/edit_session").EditSession
 
-  var theme = require("./theme");
-  var session = new EditSession('');
-  session.setUndoManager(new UndoManager());
+  var theme = require("./theme")
+  var session = new EditSession('')
+  session.setUndoManager(new UndoManager())
 
-  var container = document.getElementById("editor");
-  var editor = env.editor = new Editor(new Renderer(container, theme));
+  var container = document.getElementById("editor")
+  var editor = env.editor = new Editor(new Renderer(container, theme))
   // Each editor should contain reference to an `env` which will be used be
   // passed to the commands executed by keybindings.
-  editor.env = Object.create(env);
-  editor.setSession(session);
+  editor.env = Object.create(env)
+  editor.setSession(session)
 
   function onResize() {
-    container.style.width = (document.documentElement.clientWidth) + "px";
-    container.style.height = (document.documentElement.clientHeight - 22) + "px";
-    env.editor.resize();
-    env.editor.focus();
+    container.style.width = (document.documentElement.clientWidth) + "px"
+    container.style.height = (document.documentElement.clientHeight - 22) + "px"
+    env.editor.resize()
+    env.editor.focus()
   }
 
-  window.onresize = onResize;
-  onResize();
+  window.onresize = onResize
+  onResize()
 
-  env.editor.renderer.setHScrollBarAlwaysVisible(false);
-  env.editor.setShowInvisibles(true);
-  env.editor.renderer.setPadding(14);
-};
+  env.editor.renderer.setHScrollBarAlwaysVisible(false)
+  env.editor.setShowInvisibles(true)
+  env.editor.renderer.setPadding(14)
+}
 
 });

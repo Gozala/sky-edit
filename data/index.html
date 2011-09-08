@@ -16,17 +16,19 @@
   </head>
   <body>
     <div id="editor"></div>
-    <input id="cockpitInput" type="text"/>
+    <input id="cockpitInput" type="text" style="visibility: hidden"/>
 
     <script type="text/javascript">
       var require = {
         paths: {
           ace: "./support/ace/lib/ace",
+          gcli: "./support/cockpit/lib/cockpit",
           cockpit: "./support/cockpit/lib/cockpit",
           pilot: "./support/pilot/lib/pilot",
           vice: "./support/vice",
           launcher: "./launcher",
-          fs: "./fs"
+          fs: "./fs",
+          text: "./text"
         }
       };
     </script>

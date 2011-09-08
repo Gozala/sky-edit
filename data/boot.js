@@ -1,28 +1,28 @@
-define(function(require, exports, module) {
+!define(function(require, exports, module) {
   
-require("pilot/fixoldbrowsers");
-require("pilot/plugin_manager");
-require("pilot/environment");
-require("./launcher");
-require("cockpit/index");
+require("pilot/fixoldbrowsers")
+require("pilot/plugin_manager")
+require("pilot/environment")
+require("./launcher")
+require("gcli/index")
 
-require("pilot/index");
-require("ace/defaults");
-//require("./fs");
+require("pilot/index")
+require("ace/defaults")
+require("gcli/index")
+require("./fs")
 
 var plugins = [
   "pilot/index",
-  "cockpit/index",
+  "gcli/index",
   "ace/defaults",
   "vice/vice",
   "fs",
   "launcher"
-];
+]
 
-var catalog = require("pilot/plugin_manager").catalog;
+var catalog = require("pilot/plugin_manager").catalog
 catalog.registerPlugins(plugins).then(function() {
-  var env = require("pilot/environment").create();
-  catalog.startupPlugins({ env: env });
-});
+  catalog.startupPlugins({ env: require("pilot/environment").create() })
+})
 
 });

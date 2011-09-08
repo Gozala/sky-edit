@@ -193,31 +193,43 @@
 
 
 
-
 #cockpitInput, #cockpitOutput, .cptOutput, .cptHints,
-.cptCompletion span {
+.cptCompletion span,
+
+#gcliInput, #gcliOutput,
+.gcliOutput, .gcliHints,
+.gcliompletion span {
   background: #3D3D3D !important;
   color: #E6E1DC !important;
   text-shadow: #333 1px 1px;
   border-color: #4D4D4D !important;
 }
 
-.cptRowIn, .cptRowOut {
+.cptRowIn, .cptRowOut,
+
+.gcliRowIn, .gcliRowOut {
   border-radius: 4px;
   padding: 1px;
   margin: 2px;
   background: rgba(0, 0, 0, 0.1) !important;
 }
 
-.cptRowIn *, .cptRowIn, .cptRowOut {
+.cptRowIn *, .cptRowIn, .cptRowOut,
+
+.gcliRowIn *, .gcliRowIn, .gcliRowOut {
   color: #ccc !important;
 }
 
-.cptRowOut p {
+.cptRowOut p,
+
+.gcliRowOut p {
   margin: 2px;
 }
 
-#cockpitInput {
+#cockpitInput,
+
+#gcliInput {
+  visibility: visible !important;
   z-index: 3;
   position: absolute;
   width: 100%;
@@ -232,7 +244,9 @@
   box-shadow: 0 0 10px black;
 }
 
-#cockpitOutput {
+#cockpitOutput,
+
+#gcliOutput {
   opacity: 0.9;
   z-index: 1;
   padding: 10px;
@@ -247,7 +261,9 @@
   box-shadow: 0 0 10px black;
 }
 
-.cptHints {
+.cptHints,
+
+.gcliHints {
   opacity: 0.9;
   z-index: 2 !important;
   border: 1px solid #4D4D4D !important;
