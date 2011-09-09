@@ -85,16 +85,34 @@ var modes = {
 
 
 function isFileURI(uri) {
+  doc: "Returns true if given string is 'file:///' uri."
+
   return uri.indexOf('file://') === 0
 }
 function getFilePath(uri) {
+  doc: "Takes 'file:///' uri & returs given file path."
+
   return uri.substr('file://'.length)
 }
 function isPath(uri) {
+  doc: "Returns true if uri is path or relative file uri."
+
   return !~uri.indexOf('://')
 }
 function getDirectory(uri) {
-  return uri.substr(0, uri.lastIndexOf('/'))
+  doc: "Returns uri to the parent directory."
+
+  return uri.substr(0, uri.lastIndexOf('/') + 1)
+}
+function normalizeDirectoryURI(uri) {
+  doc: "Normalized diroctory URI so that last character is '/'"
+
+  return uri.substr(-1) === '/' ? uri : uri + '/'
+}
+function isAbsolute(uri) {
+  doc: "Returns true if uri is 'file:///' uri or absolute path."
+
+  return isFileURI(uri) || uri.charAt(0) === '/' || uri.indexOf('~/') === 0
 }
 
 function getModeForFileURI(env, uri) {
