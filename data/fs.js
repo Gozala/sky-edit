@@ -233,30 +233,27 @@ exports.commands = {
       }
     },
     write: {
-        description: 'save changes to the file',
-        params: [
-            {
-              name: 'uri',
-              type: 'text',
-              get defaultValue () {
-                return activeURI
-              }
-            }
-        ],
-        exec: function exec(env, params, request) {
-            request.async()
-            var uri = params.uri || env.editor.session.uri
-            var content = env.editor.getSession().getValue()
-            var path = isFileURI(uri) ? getFilePath(uri) : uri
-            if (isPath(path)) {
-              exports.writeFile(path, content, function(error) {
-                if (error) request.doneWithError(error.message)
-                else request.done('Wrote to: ' + path)
-              })
-            } else {
-              request.doneWithError('Unsupported file location: ' + uri)
-            }
+      description: 'save changes to the file',
+      params: [{
+        name: 'uri',
+        type: 'text',
+        defaultValue: null
+      }],
+      exec: function exec(env, params, request) {
+        request.async()
+        var uri = params.uri || editURI(env)
+        uri = isAbsolute(uri) ? uri : pwd(env) + uri
+        var content = env.editor.getSession().getValue()
+        var path = isFileURI(uri) ? getFilePath(uri) : uri
+        if (isPath(path)) {
+          exports.writeFile(path, content, function(error) {
+            if (error) request.doneWithError(error.message)
+            else request.done('Wrote to: ' + path)
+          })
+        } else {
+          request.doneWithError('Unsupported file location: ' + uri)
         }
+      }
     },
     pwd: {
       description: 'Prints current working directory',
