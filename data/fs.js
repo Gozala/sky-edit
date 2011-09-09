@@ -161,9 +161,9 @@ function setBuffer(env, uri, content, skip, replace) {
     var session = env.editor.getSession()
     session.setValue(content)
     session.setMode(getModeForFileURI(env, uri))
-    activeURI = session.uri = uri
+    editURI(env, uri)
+
     try {
-      console.log(skip, replace)
       if (skip) return
       if (replace) history.replaceState({ uri: uri }, uri, 'edit:' + uri)
       else history.pushState({ uri: uri }, uri, 'edit:' + uri)
@@ -171,8 +171,6 @@ function setBuffer(env, uri, content, skip, replace) {
       console.error(e.message)
     }
 }
-
-var activeURI = null
 
 exports.types = {
   uri: (function(URI) {
@@ -182,6 +180,24 @@ exports.types = {
     URI.stringify = function stringify(input) {
     }
   })(new types.Type())
+}
+
+function editURI(env, value) {
+  doc: "Gets / sets (if value is passed) edit uri for the active buffer."
+
+  return value ? env.editor.getSession().uri = value
+               : env.editor.getSession().uri
+}
+function pwd(env) {
+  doc: "Returns current working directory"
+
+  return env.pwd || getDirectory(editURI(env) || '') || '~/'
+}
+
+function cwd(env, path) {
+  doc: "Sets current working directiory"
+
+  return env.pwd = path
 }
 
 exports.commands = {
