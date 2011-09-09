@@ -201,6 +201,19 @@ function cwd(env, path) {
 }
 
 exports.commands = {
+    open: {
+      description: 'opens a file / uri in a new tab',
+      params: [{ name: 'uri', type: 'text' }],
+      exec: function exec(env, params, request) {
+        var uri = isAbsolute(params.uri) ? params.uri : pwd(env) + params.uri
+        try {
+          window.open('edit:' + uri)
+          request.done('opened: ' + uri)
+        } catch (error) {
+          request.doneWithError(error.message)
+        }
+      }
+    },
     edit: {
         description: 'edit a file / uri',
         params: [
