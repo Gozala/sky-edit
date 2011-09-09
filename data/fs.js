@@ -285,16 +285,21 @@ exports.commands = {
             request.doneWithError('Unsupported location: ' + uri)
           }
         }
-    }
-    /*
+    },
     cd: {
         description: 'change working directory',
-        params: [
-            { name: 'path', type: 'text' }
-        ],
-        exec: function exec(env, params) {
+        params: [{ name: 'uri', type: 'text' }],
+        exec: function exec(env, params, request) {
+          request.async()
+          var uri = isAbsolute(params.uri) ? params.uri : pwd(env) + params.uri
+          uri = normalizeDirectoryURI(uri)
+          exports.readdir(uri, function(error, entries) {
+            if (error) return request.doneWithError(error.message)
+            cwd(env, uri)
+            request.done(uri)
+          })
         }
-    }*/
+    }
 }
 
 exports.startup = function startup(event) {
