@@ -215,24 +215,22 @@ exports.commands = {
       }
     },
     edit: {
-        description: 'edit a file / uri',
-        params: [
-            { name: 'uri', type: 'text', defaultValue: null }
-        ],
-        exec: function exec(env, params, request) {
-            request.async()
-            var uri = params.uri
-            var path = isFileURI(uri) ? getFilePath(uri) : uri
-            if (isPath(path)) {
-              exports.readFile(path, function(error, content) {
-                if (error) return request.doneWithError(error.message)
-                else setBuffer(env, path, content, params.skip, params.replace)
-                return request.done('Edit: ' + path)
-              })
-            } else {
-              request.doneWithError('Unsupported file location: ' + uri)
-            }
+      description: 'edit a file / uri',
+      params: [{ name: 'uri', type: 'text' }],
+      exec: function exec(env, params, request) {
+        request.async()
+        var uri = isAbsolute(params.uri) ? params.uri : pwd(env) + params.uri
+        var path = isFileURI(uri) ? getFilePath(uri) : uri
+        if (isPath(path)) {
+          exports.readFile(path, function(error, content) {
+            if (error) return request.doneWithError(error.message)
+            else setBuffer(env, path, content, params.skip, params.replace)
+            return request.done('Edit: ' + path)
+          })
+        } else {
+          request.doneWithError('Unsupported file location: ' + uri)
         }
+      }
     },
     write: {
         description: 'save changes to the file',
