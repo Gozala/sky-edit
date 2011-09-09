@@ -268,12 +268,14 @@ exports.commands = {
     },
     ls: {
         description: 'list files in the working dir',
-        params: [
-            { name: 'uri', type: 'text', defaultValue: null }
-        ],
+        params: [{
+          name: 'uri',
+          type: 'text',
+          defaultValue: './'
+        }],
         exec: function exec(env, params, request) {
           request.async()
-          var uri = params.uri
+          var uri = isAbsolute(params.uri) ? params.uri : pwd(env) + params.uri
           var path = isFileURI(uri) ? getFilePath(uri) : uri
           if (isPath(path)) {
             exports.readdir(path, function(error, entries) {
