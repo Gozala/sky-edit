@@ -263,7 +263,7 @@ exports.commands = {
     pwd: {
       description: 'Prints current working directory',
       exec: function exec(env, params, request) {
-        request.done(getDirectory(activeURI))
+        request.done(pwd(env))
       }
     },
     ls: {
