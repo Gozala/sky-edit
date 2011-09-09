@@ -37,6 +37,9 @@ exports.startup = function(data) {
   env.editor.renderer.setHScrollBarAlwaysVisible(false)
   env.editor.setShowInvisibles(true)
   env.editor.renderer.setPadding(14)
+  env.editor.session.setTabSize(2)
+
+  if (window.opener) env.pwd = window.opener.env.pwd
 }
 
 });
