@@ -5,6 +5,8 @@
 !define(function(require, exports, module) {
 
 exports.startup = function(data) {
+  var document = data.document
+  var window = data.window
   var env = window.env = data.env
 
   var Range = require("ace/range").Range
@@ -26,7 +28,7 @@ exports.startup = function(data) {
 
   function onResize() {
     container.style.width = (document.documentElement.clientWidth) + "px"
-    container.style.height = (document.documentElement.clientHeight - 22) + "px"
+    container.style.height = (document.documentElement.clientHeight) + "px"
     env.editor.resize()
     env.editor.focus()
   }

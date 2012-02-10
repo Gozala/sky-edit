@@ -3,9 +3,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="./theme.css" media="screen" rel="stylesheet" type="text/css"/>
     <style type="text/css" media="screen">
       html, body {
-          font-size: 12px;
+          font-size: 15px;
+          position: absolute;
           overflow: hidden;
           margin: 0;
           padding: 0;
@@ -16,22 +18,34 @@
   </head>
   <body>
     <div id="editor"></div>
-    <input id="cockpitInput" type="text" style="visibility: hidden"/>
+    <textarea id="cockpitInput" style="visibility: hidden"></textarea>
 
+    <script src="./require.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      var require = {
-        paths: {
-          ace: "./support/ace/lib/ace",
-          gcli: "./support/cockpit/lib/cockpit",
-          cockpit: "./support/cockpit/lib/cockpit",
-          pilot: "./support/pilot/lib/pilot",
-          vice: "./support/vice",
-          launcher: "./launcher",
-          fs: "./fs",
-          text: "./text"
-        }
-      };
+      if (false && window.opener) {
+        require = window.opener.require
+        require("./boot.js").catalog.startupPlugins({
+          env: window.opener.env,
+          document: document,
+          window: window
+        })
+      } else {
+        require({
+          paths: {
+            ace: "./support/ace/lib/ace",
+            gcli: "./support/cockpit/lib/cockpit",
+            cockpit: "./support/cockpit/lib/cockpit",
+            pilot: "./support/pilot/lib/pilot",
+            vice: "./support/vice",
+            launcher: "./launcher",
+            streamer: "./support/streamer",
+            functional: "./support/functional",
+            fs: "./fs",
+            text: "./text"
+          }
+        });
+        require([ './boot.js' ])
+      }
     </script>
-    <script src="./support/ace/demo/require.js" data-main="./boot.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
