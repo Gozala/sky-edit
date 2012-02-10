@@ -37,10 +37,7 @@
 
 define(function(require, exports, module) {
 
-var dom = require("pilot/dom");
-var cssText = require("text!./theme.css");
-// import CSS once
-dom.importCssString(cssText);
-exports.cssClass = "ace-twilight";
+exports.cssClass = "ace-ambiance";
+exports.cssText = require("text!./theme.css");
 
 });
