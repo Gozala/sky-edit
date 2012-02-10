@@ -1,5 +1,5 @@
 /* vim:set ts=2 sw=2 sts=2 expandtab */
-/*jshint undef: true es5: true node: true devel: true
+/*jshint asi: true undef: true es5: true node: true devel: true
          forin: true latedef: false supernew: true browser: true */
 /*global define: true port: true */
 !define(function(require, exports) {
@@ -7,6 +7,8 @@
 "use strict";
 
 var types = require("pilot/types")
+var SelectionType = require('pilot/types/basic').SelectionType
+var canon = require('pilot/canon')
 
 var env, GUID = 0
 var callbacks = {}
@@ -69,7 +71,7 @@ var modes = {
   'java': new JavaMode(),
   'csharp': new CSharpMode(),
   'ruby': new RubyMode(),
-  'c_cpp': new CCPPMode(),
+  'c++': new CCPPMode(),
   'coffee': new CoffeeMode(),
   'json': new JsonMode(),
   'perl': new PerlMode(),
@@ -139,7 +141,7 @@ function getModeForFileURI(env, uri) {
   } else if (/^.*\.rb$/i.test(file.name)) {
       mode = "ruby"
   } else if (/^.*\.(c|cpp|h|hpp|cxx)$/i.test(file.name)) {
-      mode = "c_cpp"
+      mode = "c++"
   } else if (/^.*\.coffee$/i.test(file.name)) {
       mode = "coffee"
   } else if (/^.*\.json$/i.test(file.name)) {
@@ -158,21 +160,27 @@ function getModeForFileURI(env, uri) {
 }
 
 function setBuffer(env, uri, content, skip, replace) {
-    var session = env.editor.getSession()
-    session.setValue(content)
-    session.setMode(getModeForFileURI(env, uri))
-    editURI(env, uri)
+  var session = env.editor.getSession()
+  session.setValue(content)
+  session.setMode(getModeForFileURI(env, uri))
+  editURI(env, uri)
 
-    try {
-      if (skip) return
-      if (replace) history.replaceState({ uri: uri }, uri, 'edit:' + uri)
-      else history.pushState({ uri: uri }, uri, 'edit:' + uri)
-    } catch (e) {
-      console.error(e.message)
-    }
+  try {
+    if (skip) return
+    if (replace) history.replaceState({ uri: uri }, uri, 'edit:' + uri)
+    else history.pushState({ uri: uri }, uri, 'edit:' + uri)
+  } catch (e) {
+    console.error(e.message)
+  }
 }
 
 exports.types = {
+  mode: new SelectionType({
+    name: 'mode',
+    data: function data() {
+      return Object.keys(modes);
+    }
+  }),
   uri: (function(URI) {
     URI.name = 'uri'
     URI.parse = function parse(input) {
@@ -208,7 +216,9 @@ exports.commands = {
         var uri = isAbsolute(params.uri) ? params.uri : pwd(env) + params.uri
         try {
           window.open('edit:' + uri)
+          //window.open(window.location.href)
           request.done('opened: ' + uri)
+          env.editor.focus()
         } catch (error) {
           request.doneWithError(error.message)
         }
@@ -225,7 +235,8 @@ exports.commands = {
           exports.readFile(path, function(error, content) {
             if (error) return request.doneWithError(error.message)
             else setBuffer(env, path, content, params.skip, params.replace)
-            return request.done('Edit: ' + path)
+            request.done('Edit: ' + path)
+            env.editor.focus()
           })
         } else {
           request.doneWithError('Unsupported file location: ' + uri)
@@ -247,8 +258,9 @@ exports.commands = {
         var path = isFileURI(uri) ? getFilePath(uri) : uri
         if (isPath(path)) {
           exports.writeFile(path, content, function(error) {
-            if (error) request.doneWithError(error.message)
-            else request.done('Wrote to: ' + path)
+            if (error) return request.doneWithError(error.message)
+            request.done('Wrote to: ' + path)
+            env.editor.focus()
           })
         } else {
           request.doneWithError('Unsupported file location: ' + uri)
@@ -299,26 +311,40 @@ exports.commands = {
     }
 }
 
-exports.startup = function startup(event) {
-    var canon = require("pilot/canon")
-    var commands = exports.commands
-    var env = event.env
-
-    Object.keys(commands).forEach(function(name) {
-        var command = commands[name]
-        command.name = name
-        canon.addCommand(command)
-    })
-
-    function load(skip, replace) {
-      var uri = String(location).substr('edit:'.length)
-      if (uri) canon.exec('edit', env, 'cli', {
-        uri: uri, skip: !!skip, replace: !!replace
-      }, 'edit')
+exports.settings = {
+  fileType: {
+    name: 'fileType',
+    description: 'Sets buffer file type / mode',
+    type: 'mode',
+    onChange: function onChange(event) {
+      env.editor.getSession().setMode(modes[event.value])
     }
+  }
+}
 
-    window.addEventListener('popstate', load, false)
-    load(false, true)
+exports.startup = function startup(event) {
+  env = event.env
+  var commands = exports.commands
+
+  types.registerType(exports.types.mode)
+  env.settings.addSettings(exports.settings)
+
+  Object.keys(commands).forEach(function(name) {
+      var command = commands[name]
+      command.name = name
+      canon.addCommand(command)
+  })
+
+
+  function load(skip, replace) {
+    var uri = String(location).substr('edit:'.length)
+    if (uri) canon.exec('edit', env, 'cli', {
+      uri: uri, skip: !!skip, replace: !!replace
+    }, 'edit')
+  }
+
+  window.addEventListener('popstate', load, false)
+  load(false, true)
 }
 
 });
