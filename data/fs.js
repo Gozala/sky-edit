@@ -7,8 +7,8 @@
 "use strict";
 
 var types = require("pilot/types")
-var SelectionType = require('pilot/types/basic').SelectionType
 var canon = require('pilot/canon')
+var modes = require('./mode-manager')
 
 var env, GUID = 0
 var callbacks = {}
@@ -39,52 +39,6 @@ exports.writeFile = call.bind(null, 'writeFile')
 exports.readURI = call.bind(null, 'readURI')
 exports.rename = call.bind(null, 'rename')
 exports.readdir = call.bind(null, 'readdir')
-
-var JavaScriptMode = require("ace/mode/javascript").Mode
-var CssMode = require("ace/mode/css").Mode
-var HtmlMode = require("ace/mode/html").Mode
-var XmlMode = require("ace/mode/xml").Mode
-var PythonMode = require("ace/mode/python").Mode
-var PhpMode = require("ace/mode/php").Mode
-var JavaMode = require("ace/mode/java").Mode
-var CSharpMode = require("ace/mode/csharp").Mode
-var RubyMode = require("ace/mode/ruby").Mode
-var CCPPMode = require("ace/mode/c_cpp").Mode
-var CoffeeMode = require("ace/mode/coffee").Mode
-var JsonMode = require("ace/mode/json").Mode
-var PerlMode = require("ace/mode/perl").Mode
-var ClojureMode = require("ace/mode/clojure").Mode
-var OcamlMode = require("ace/mode/ocaml").Mode
-var SvgMode = require("ace/mode/svg").Mode
-var TextileMode = require("ace/mode/textile").Mode
-var TextMode = require("ace/mode/text").Mode
-var GroovyMode = require("ace/mode/groovy").Mode
-var ScalaMode = require("ace/mode/scala").Mode
-
-var modes = {
-  'javascript': new JavaScriptMode(),
-  'css': new CssMode(),
-  'html': new HtmlMode(),
-  'xml': new XmlMode(),
-  'python': new PythonMode(),
-  'php': new PhpMode(),
-  'java': new JavaMode(),
-  'csharp': new CSharpMode(),
-  'ruby': new RubyMode(),
-  'c++': new CCPPMode(),
-  'coffee': new CoffeeMode(),
-  'json': new JsonMode(),
-  'perl': new PerlMode(),
-  'clojure': new ClojureMode(),
-  'ocaml': new OcamlMode(),
-  'svg': new SvgMode(),
-  'textile': new TextileMode(),
-  'text': new TextMode(),
-  'groovy': new GroovyMode(),
-  'scala': new ScalaMode()
-}
-
-
 
 function isFileURI(uri) {
   doc: "Returns true if given string is 'file:///' uri."
@@ -117,52 +71,10 @@ function isAbsolute(uri) {
   return isFileURI(uri) || uri.charAt(0) === '/' || uri.indexOf('~/') === 0
 }
 
-function getModeForFileURI(env, uri) {
-  var file = { name: String(uri).split('?')[0].split('#')[0] }
-  var mode = "text"
-  if (/^.*\.js|\.jsm$/i.test(file.name)) {
-      mode = "javascript"
-  } else if (/^.*\.xml$/i.test(file.name)) {
-      mode = "xml"
-  } else if (/^.*\.html$/i.test(file.name)) {
-      mode = "html"
-  } else if (/^.*\.css$/i.test(file.name)) {
-      mode = "css"
-  } else if (/^.*\.scss$/i.test(file.name)) {
-      mode = "scss"
-  } else if (/^.*\.py$/i.test(file.name)) {
-      mode = "python"
-  } else if (/^.*\.php$/i.test(file.name)) {
-      mode = "php"
-  } else if (/^.*\.cs$/i.test(file.name)) {
-      mode = "csharp"
-  } else if (/^.*\.java$/i.test(file.name)) {
-      mode = "java"
-  } else if (/^.*\.rb$/i.test(file.name)) {
-      mode = "ruby"
-  } else if (/^.*\.(c|cpp|h|hpp|cxx)$/i.test(file.name)) {
-      mode = "c++"
-  } else if (/^.*\.coffee$/i.test(file.name)) {
-      mode = "coffee"
-  } else if (/^.*\.json$/i.test(file.name)) {
-      mode = "json"
-  } else if (/^.*\.(pl|pm)$/i.test(file.name)) {
-      mode = "perl"
-  } else if (/^.*\.(ml|mli)$/i.test(file.name)) {
-      mode = "ocaml"
-  } else if (/^.*\.(groovy)$/i.test(file.name)) {
-      mode = "groovy"
-  } else if (/^.*\.(scala)$/i.test(file.name)) {
-      mode = "scala"
-  }
-
-  return modes[mode]
-}
-
 function setBuffer(env, uri, content, skip, replace) {
   var session = env.editor.getSession()
   session.setValue(content)
-  session.setMode(getModeForFileURI(env, uri))
+  session.setMode(modes.getModeByURI(uri))
   editURI(env, uri)
 
   try {
@@ -175,12 +87,6 @@ function setBuffer(env, uri, content, skip, replace) {
 }
 
 exports.types = {
-  mode: new SelectionType({
-    name: 'mode',
-    data: function data() {
-      return Object.keys(modes);
-    }
-  }),
   uri: (function(URI) {
     URI.name = 'uri'
     URI.parse = function parse(input) {
@@ -311,28 +217,14 @@ exports.commands = {
     }
 }
 
-exports.settings = {
-  fileType: {
-    name: 'fileType',
-    description: 'Sets buffer file type / mode',
-    type: 'mode',
-    onChange: function onChange(event) {
-      env.editor.getSession().setMode(modes[event.value])
-    }
-  }
-}
-
 exports.startup = function startup(event) {
   env = event.env
   var commands = exports.commands
 
-  types.registerType(exports.types.mode)
-  env.settings.addSettings(exports.settings)
-
   Object.keys(commands).forEach(function(name) {
-      var command = commands[name]
-      command.name = name
-      canon.addCommand(command)
+    var command = commands[name]
+    command.name = name
+    canon.addCommand(command)
   })
 
 
