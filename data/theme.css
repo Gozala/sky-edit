@@ -195,56 +195,80 @@
   color: #494949;
 }
 
-#cockpitInput,
-#cockpitOutput,
-.cptOutput,
-.cptHints,
+.gcli-display-hint,
+.gcli-display-output {
+  position: fixed;
+  bottom: 0px;
+}
 
-#gcliInput,
-#gcliOutput,
-.gcliOutput,
-.gcliHints {
+#gcli-display {
+  height: 0;
+}
 
+#gcli-input,
+#gcli-display .gcli-display-hint,
+#gcli-display .gcli-display-output,
+#gcli-display .gcli-row-in,
+#gcli-display .gcli-row-out,
+#gcli-display .gcli-row-in-typed,
+#gcli-display .gcli-display-hint {
   background: #3D3D3D;
   color: #E6E1DC;
-  text-shadow: #333 1px 1px;
+  text-shadow: #333 0px 1px;
   border-color: #4D4D4D !important;
 }
 
-.cptRowIn, .cptRowOut,
-
-.gcliRowIn, .gcliRowOut {
+#gcli-display .gcli-row-in,
+#gcli-display .gcli-row-out {
+  border: none;
   border-radius: 4px;
   padding: 1px;
-  margin: 2px;
+  margin: 2px 4px;
   background: rgba(0, 0, 0, 0.1) !important;
 }
 
-.cptRowIn *, .cptRowIn, .cptRowOut,
-
-.gcliRowIn *, .gcliRowIn, .gcliRowOut {
-  color: #ccc !important;
-}
-
-.cptRowOut p,
-
-.gcliRowOut p {
+.gcli-row-out p {
   margin: 2px;
 }
 
-#cockpitInput,
+.gcli-menu {
+  border: none !important;
+}
 
-#gcliInput {
+.gcli-menu-option,
+.gcli-menu-name,
+.gcli-menu-desc {
+  font-family: monaco consolas, courier, monospace;
+  font-size: 12px !important;
+}
+
+.gcli-menu-option:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.gcli-field {
+  background: rgba(255, 255, 255, 0.1) !important;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 0 5px;
+  border: 1px solid #3D3D3D;
+  outline: none;
+  color: #E6E1DC;
+}
+
+.gcli-prompt {
+  color: #fff !important;
+}
+
+#gcli-input {
+  color: #E6E1DC !important;
   background: #3D3D3D !important;
-
-  visibility: visible !important;
   z-index: 3;
   position: fixed;
   width: 100%;
   height: 18px;
-  padding: 3px 24px;
-  border: none;
   bottom: 0;
+  border: none;
   border-top: 1px solid;
   outline: none;
   margin: 0;
@@ -255,43 +279,22 @@
   box-shadow: 0 0 10px black;
 }
 
-#cockpitOutput,
-
-#gcliOutput {
-  position: fixed;
+.gcli-display-output {
   opacity: 0.9;
   z-index: 1;
-  padding: 10px;
-  margin: 0 15px;
+  border: 1px solid #4D4D4D !important;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  border: 1px solid;
   border-bottom: none;
-  font-size: 12px;
+  font-size: 13px;
 
   box-shadow: 0 0 10px black;
+  max-height: 50% !important;
+  width: 90%;
+  margin-left: 20px !important;
 }
 
-.cptCompletion,
-.cptCompletion.INCOMPLETE,
-.cptCompletion.INVALID,
-.cptCompletion.VALID {
-  background: transparent;
-  z-index: 30;
-  padding: 0 8px;
-  margin: 0;
-}
-
-.cptCompletion span {
-  color: transparent !important;
-}
-
-#gcliInput,
-#cockpitInput,
-.cptCompletion {
-}
-
-#cockpitInput {
+#gcli-input {
   opacity: 0.3;
   -webkit-transition: opacity 0.2s ease;
   -moz-transition: opacity 0.2s;
@@ -299,17 +302,19 @@
   transition: opacity 0.2s ease;
 }
 
-#cockpitInput:focus {
+#gcli-input:focus {
   opacity: 0.9;
 }
 
-.cptHints,
-
-.gcliHints {
+.gcli-display-hint {
   opacity: 0.9;
-  z-index: 2 !important;
+  width: auto;
+  max-height: 200px;
   border: 1px solid #4D4D4D !important;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   box-shadow: 0 0 10px black;
+  z-index: 2 !important;
+  padding-bottom: 32px !important;
+  margin-left: 40px;
 }
