@@ -10,3 +10,6 @@
 [submodule "data/support/vice"]
 	path = data/support/vice
 	url = https://Gozala@github.com/Gozala/vice.git
+[submodule "data/support/gcli-plug"]
+	path = data/support/gcli-plug
+	url = https://github.com/Gozala/gcli-plug.git
