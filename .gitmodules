@@ -10,6 +10,9 @@
 [submodule "data/support/vice"]
 	path = data/support/vice
 	url = https://Gozala@github.com/Gozala/vice.git
+[submodule "data/support/micro-promise"]
+	path = data/support/micro-promise
+	url = https://github.com/Gozala/micro-promise.git
 [submodule "data/support/gcli"]
 	path = data/support/gcli
 	url = https://github.com/Gozala/gcli.git
