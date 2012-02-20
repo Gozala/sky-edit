@@ -13,3 +13,6 @@
 [submodule "data/support/gcli-plug"]
 	path = data/support/gcli-plug
 	url = https://github.com/Gozala/gcli-plug.git
+[submodule "data/support/ace-plug"]
+	path = data/support/ace-plug
+	url = https://github.com/Gozala/ace-plug.git
