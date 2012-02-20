@@ -21,27 +21,27 @@
   <div id="editor"></div>
   <div id="gcli-display"></div>
   <input id="gcli-input" type="text" autofocus/>
-  <script type="text/javascript" src="./require.js" data-main="./core"></script>
   <script type="text/javascript">
-    require({
+    var require = {
       packagePaths: {
         'support': [
-          { name: 'plugin-hub', lib: 'lib' },
-          { name: 'gcli-plug' },
-          { name: 'ace-plug' },
-          { name: 'vice' }
+          { name: 'plugin-hub', lib: './', main: './index' },
+          { name: 'gcli-plug', lib: './', main: './index' },
+          { name: 'ace-plug', lib: './', main: './index' },
+          { name: 'vice', lib: './', main: './index' }
         ],
         'support/ace/lib': [
-          { name: 'ace', lib: 'lib', main: './' },
-          { name: 'pilot' }
+          { name: 'ace', lib: './lib/', main: './' },
+          { name: 'pilot', lib: './' }
         ],
         'support/gcli/lib': [
-          { name: 'gcli', lib: '.' },
-          { name: 'test', main: "index", lib: "." },
-          { name: 'gclitest', main: "index", lib: "." }
+          { name: 'gcli', lib: '.', main: './index' },
+          { name: 'test', main: 'index', lib: './' },
+          { name: 'gclitest', main: 'index', lib: './' }
         ]
       }
-    })
+    }
   </script>
+  <script type="text/javascript" src="./require.js" data-main="./core"></script>
 </body>
 </html>
