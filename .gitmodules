@@ -16,3 +16,6 @@
 [submodule "data/support/ace-plug"]
 	path = data/support/ace-plug
 	url = https://github.com/Gozala/ace-plug.git
+[submodule "data/support/plugin-hub"]
+	path = data/support/plugin-hub
+	url = https://github.com/Gozala/plugin-hub.git
