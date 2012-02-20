@@ -16,3 +16,6 @@
 [submodule "data/support/plugin-hub"]
 	path = data/support/plugin-hub
 	url = https://github.com/Gozala/plugin-hub.git
+[submodule "data/support/micro-promise"]
+	path = data/support/micro-promise
+	url = git://github.com/Gozala/micro-promise.git
