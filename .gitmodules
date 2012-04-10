@@ -25,9 +25,6 @@
 [submodule "@modules/raw.github.com/Gozala/events/v0.5.0"]
 	path = @modules/raw.github.com/Gozala/events/v0.5.0
 	url = https://github.com/Gozala/events.git
-[submodule "@modules/raw.github.com/Gozala/jetpack-io/v0.4.0"]
-	path = @modules/raw.github.com/Gozala/jetpack-io/v0.4.0
-	url = https://github.com/Gozala/jetpack-io.git
 [submodule "@modules/raw.github.com/Gozala/jetpack-protocol/v0.2.0"]
 	path = @modules/raw.github.com/Gozala/jetpack-protocol/v0.2.0
 	url = https://github.com/Gozala/jetpack-protocol.git
