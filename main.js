@@ -9,7 +9,7 @@
 var data = require("self").data
 var PageMod = require("addon-kit/page-mod").PageMod
 var protocol = require("raw.github.com/Gozala/jetpack-protocol/v0.2.0/index")
-var fs = require("raw.github.com/Gozala/jetpack-io/v0.4.0/fs")
+var fs = require("raw.github.com/Gozala/jetpack-io/v0.4.2/fs")
 
 const PROTOCOL = 'edit'
 const editorURI = data.url('index.html')
