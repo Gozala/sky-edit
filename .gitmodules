@@ -28,3 +28,6 @@
 [submodule "@modules/raw.github.com/Gozala/jetpack-protocol/v0.2.0"]
 	path = @modules/raw.github.com/Gozala/jetpack-protocol/v0.2.0
 	url = https://github.com/Gozala/jetpack-protocol.git
+[submodule "@modules/raw.github.com/Gozala/jetpack-io/v0.4.1"]
+	path = @modules/raw.github.com/Gozala/jetpack-io/v0.4.1
+	url = https://github.com/Gozala/jetpack-io.git
