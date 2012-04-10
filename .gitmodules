@@ -1,12 +1,33 @@
 [submodule "data/support/ace"]
 	path = data/support/ace
-	url = https://Gozala@github.com/Gozala/ace.git
-[submodule "data/support/pilot"]
-	path = data/support/pilot
-	url = https://Gozala@github.com/Gozala/pilot.git
-[submodule "data/support/cockpit"]
-	path = data/support/cockpit
-	url = https://Gozala@github.com/Gozala/cockpit.git
+	url = https://github.com/Gozala/ace.git
 [submodule "data/support/vice"]
 	path = data/support/vice
-	url = https://Gozala@github.com/Gozala/vice.git
+	url = https://github.com/Gozala/vice.git
+[submodule "data/support/gcli"]
+	path = data/support/gcli
+	url = https://github.com/Gozala/gcli.git
+[submodule "data/support/gcli-plug"]
+	path = data/support/gcli-plug
+	url = https://github.com/Gozala/gcli-plug.git
+[submodule "data/support/ace-plug"]
+	path = data/support/ace-plug
+	url = https://github.com/Gozala/ace-plug.git
+[submodule "data/support/plugin-hub"]
+	path = data/support/plugin-hub
+	url = https://github.com/Gozala/plugin-hub.git
+[submodule "data/support/micro-promise"]
+	path = data/support/micro-promise
+	url = git://github.com/Gozala/micro-promise.git
+[submodule "@modules/raw.github.com/Gozala/extendables/v0.2.0"]
+	path = @modules/raw.github.com/Gozala/extendables/v0.2.0
+	url = https://Gozala@github.com/Gozala/extendables.git
+[submodule "@modules/raw.github.com/Gozala/events/v0.5.0"]
+	path = @modules/raw.github.com/Gozala/events/v0.5.0
+	url = https://Gozala@github.com/Gozala/events.git
+[submodule "@modules/raw.github.com/Gozala/jetpack-io/v0.4.0"]
+	path = @modules/raw.github.com/Gozala/jetpack-io/v0.4.0
+	url = https://Gozala@github.com/Gozala/jetpack-io.git
+[submodule "@modules/raw.github.com/Gozala/jetpack-protocol/v0.2.0"]
+	path = @modules/raw.github.com/Gozala/jetpack-protocol/v0.2.0
+	url = https://github.com/Gozala/jetpack-protocol.git
