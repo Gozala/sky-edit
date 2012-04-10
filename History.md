@@ -1,5 +1,11 @@
 # History #
 
+## 0.6.0 / 2012-04-10
+
+  - Remove dependency on npm and graphqurie.
+  - Introduce new independent plugin system.
+  - Implement all features ace plugins.
+
 ## 0.5.3 / 2012-02-11
 
   - Decouple mode manager from the `fs` plugin.

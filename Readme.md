@@ -1,4 +1,4 @@
-# sky-edit #
+# sky-edit
 
 **This is still very alpha experiment**
 
@@ -16,20 +16,14 @@ editing it an editor, or just being able to navigate to
 experiment using [jetpack] and [ace] with an attempt to do exactly that and
 probably more in a future.
 
-![Screenshot](http://f.cl.ly/items/0E3Z0B0Q160y0W1k0H0s/Screen%20Shot%202011-09-08%20at%2014.17.41%20.png "Screenshot")
+![Screenshot](http://f.cl.ly/items/0W442W212T3u323d0p44/Screen%20Shot%202012-04-10%20at%2024.37.20%20.png "Screenshot")
 
-## Hack ##
-
-To hack on this package you will need [npm](http://npmjs.org/) and [graphquire].
+## Hack
 
     git clone git://github.com/Gozala/sky-edit.git --recursive
     cd sky-edit
-    # install npm if you don't have yet
-    # skip next line if you already have graphquire
-    npm install graphquire -g
-    npm link
 
-## Install ##
+## Install
 
 Download latest .xpi file from [downloads] and drag it to firefox.
 
