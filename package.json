@@ -15,12 +15,6 @@
     "web": "http://github.com/Gozala/sky-edit/issues/"
   },
   "main": "./main.js",
-  "devDependencies": {
-    "graphquire": ">=0.7.0"
-  },
-  "scripts": {
-    "install": "graphquire --clean --write --escape --cache-path ./"
-  },
   "licenses": [{
     "type" : "MIT",
     "url" : "http://jeditoolkit.com/LICENSE"
