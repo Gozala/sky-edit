@@ -139,14 +139,14 @@ define(function(require, exports) {
     edit: meta({
       description: 'edit a file / uri',
       takes: [ 'uri', 'env' ]
-    }, function edit(uri, env) {
+    }, function edit(uri, env, skip, replace) {
       var deferred = defer()
       uri = isAbsolute(uri) ? uri : pwd(env) + uri
       var path = isFileURI(uri) ? getFilePath(uri) : uri
       if (isPath(path)) {
         exports.readFile(path, function(error, content) {
           if (error) deferred.reject(error.message)
-          else setBuffer(env, path, content)
+          else setBuffer(env, path, content, skip, replace)
           deferred.resolve('Edit: ' + path)
           env.editor.focus()
         })
@@ -220,7 +220,7 @@ define(function(require, exports) {
 
     function load(skip, replace) {
       var uri = String(location).substr('edit:'.length)
-      if (uri) commands.edit(uri, env)
+      if (uri) commands.edit(uri, env, skip, replace)
     }
 
     window.addEventListener('popstate', load, false)
