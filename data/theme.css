@@ -239,7 +239,8 @@
   font-style: normal;
 }
 
-.ace-ambiance .ace_definition {
+.ace-ambiance .ace_definition,
+.ace-ambiance .ace_type {
   color: #aac6e3;
 }
 
