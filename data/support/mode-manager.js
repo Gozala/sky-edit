@@ -40,7 +40,7 @@ define(function(require, exports, module) {
     ["SCSS", require("ace/mode/scss").Mode, ["scss"]],
     ["Ruby", require("ace/mode/ruby").Mode, ["rb"]],
     ["SQL", require("ace/mode/sql").Mode, ["sql"]],
-    ["SVG", require("ace/mode/SVG").Mode, ["svg"]],
+    ["SVG", require("ace/mode/svg").Mode, ["svg"]],
     ["Text", require("ace/mode/text").Mode, ["txt"]],
     ["Textile", require("ace/mode/textile").Mode, ["textile"]],
     ["XML", require("ace/mode/xml").Mode, ["xml"]]
