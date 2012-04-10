@@ -8,8 +8,8 @@
 
 var data = require("self").data
 var PageMod = require("addon-kit/page-mod").PageMod
-var protocol = require("https://raw.github.com/Gozala/jetpack-protocol/v0.2.0/index.js")
-var fs = require("https://raw.github.com/Gozala/jetpack-io/v0.2.1/fs.js")
+var protocol = require("raw.github.com/Gozala/jetpack-protocol/v0.2.0/index")
+var fs = require("raw.github.com/Gozala/jetpack-io/v0.4.0/fs")
 
 const PROTOCOL = 'edit'
 const editorURI = data.url('index.html')
