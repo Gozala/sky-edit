@@ -10,14 +10,24 @@ var data = require("self").data
 var PageMod = require("addon-kit/page-mod").PageMod
 var protocol = require("raw.github.com/Gozala/jetpack-protocol/v0.3.0/index")
 var fs = require("raw.github.com/Gozala/jetpack-io/v0.4.2/fs")
+var permissions = require('./permissions')
 
 const PROTOCOL = 'edit'
 const editorURI = data.url('index.html')
 const rootURI = editorURI.substr(0, editorURI.lastIndexOf('/') + 1)
 
+console.log(editorURI)
+
 function errorToJSON(error) {
   return error ? { message: error.message, stack: error.stack } : error
 }
+
+// Allow popups for editor.
+permissions.add({
+  host: 'edit:',
+  type: 'popup',
+  capability: true
+})
 
 var mod  = PageMod({
   include: PROTOCOL + ':*',
