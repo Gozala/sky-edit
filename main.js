@@ -35,7 +35,9 @@ var mod  = PageMod({
   }
 })
 
-function isAbsolute(uri) {  return ~uri.indexOf('edit:') }
+function isAbsolute(uri) {
+  return ~uri.indexOf('edit:') || ~uri.indexOf('://')
+}
 function resolve(id, base) {
   var path, paths, last
   if (isAbsolute(id)) return id
@@ -55,12 +57,25 @@ function resolve(id, base) {
   return base.join('/')
 }
 
+function normalize(uri) {
+  return uri.replace(/\/\.\//, '/')
+}
+
 // Registers protocol handler for `edit:*` protocol.
 var editProtocolHandler = protocol.protocol(PROTOCOL, {
   onResolve: function(uri, base) {
     if (base && !~base.indexOf('edit:///'))
       base = 'edit:///index.html'
-    return resolve(uri, base)
+
+    var href = normalize(resolve(uri, base)).
+      replace('edit::', '') // strip out host from the URLs.
+
+    return {
+      scheme: 'edit',
+      host: 'edit:',
+      href: href,
+      path: ~href.indexOf('edit:///') ? href.replace('edit:///', '') : '/'
+    }
   },
   // When browser is navigated to `edit:*` URI this function is called with an
   // absolute URI and returned content or content under returned URI will be
