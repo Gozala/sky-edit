@@ -16,7 +16,7 @@ editing it an editor, or just being able to navigate to
 experiment using [jetpack] and [ace] with an attempt to do exactly that and
 probably more in a future.
 
-![Screenshot](http://f.cl.ly/items/0W442W212T3u323d0p44/Screen%20Shot%202012-04-10%20at%2024.37.20%20.png "Screenshot")
+![Screenshot](http://f.cl.ly/items/0P312g0o0U3I210H0C0i/Screen%20Shot%202012-04-11%20at%2017.40.36%20.png "Screenshot")
 
 ## Hack
 

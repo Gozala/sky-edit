@@ -1,5 +1,12 @@
 # History #
 
+## 0.6.1 / 2012-04-11
+
+  - Fix issues with workers to allow background jobs like jshint.
+  - Fix open command by allowing pop-ups form `edit:` URLs.
+  - Got rid off annoying ace hotkeys that conflict with browser ones.
+  - Normalize URLs to avoid `/./`-s in them.
+
 ## 0.6.0 / 2012-04-10
 
   - Remove dependency on npm and graphqurie.
